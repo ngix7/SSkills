@@ -82,7 +82,7 @@ If approved (>=3 YES), I load the matching skill and use `firefight.js` for exec
 
 ### firefight.js — Execution Engine
 
-`scripts/firefight.js` handles the non-LLM parts: skill loading, payload execution, and output.
+`scripts/firefight.js` handles the non-LLM parts: skill loading, payload execution, CORS probing, history compression, chain proposals, and output.
 
 ```bash
 # List all skills
@@ -105,6 +105,15 @@ node scripts/firefight.js --mode exec --target attacker.com --dns-type TXT --pla
 
 # WebSocket test (OOB detection)
 node scripts/firefight.js --mode exec --target 'wss://target.com/ws' --payload '{"message":"test"}' --playground
+
+# Probe target for CORS + public endpoints
+node scripts/firefight.js --mode probe --target https://juice-shop-staging.herokuapp.com
+
+# Compress debate history for compact prompts
+node scripts/firefight.js --mode compress \
+  --rounds '{"agent":"optimist","text":"arg..."}' \
+  --rounds '{"agent":"skeptic","text":"counter..."}' \
+  --rounds '{"agent":"engineer","text":"exploit..."}'
 ```
 
 ### Config
