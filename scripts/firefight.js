@@ -49,7 +49,16 @@ function loadSkill(vulnClass) {
   return { router, techniques };
 }
 
-// ─── Execute Payload (robusto) ────────────────────────────────────
+// ─── Protocol detection ───────────────────────────────────────────
+
+function detectProtocol(target, explicit) {
+  if (explicit && explicit !== 'auto') return explicit;
+  if (target.startsWith('ws://') || target.startsWith('wss://')) return 'ws';
+  if (!target.startsWith('http://') && !target.startsWith('https://') && !target.startsWith('ws')) return 'dns';
+  return 'http';
+}
+
+// ─── Execute Payload (robusto, multi-protocol) ────────────────────
 
 function execute(target, opts = {}) {
   const {
@@ -63,15 +72,67 @@ function execute(target, opts = {}) {
     agent,
     playground,
     raw,
+    protocol: explicitProtocol,
+    dnsType = 'A',
+    dnsServer,
   } = opts;
 
+  const protocol = detectProtocol(target, explicitProtocol);
   const m = method.toUpperCase();
+
+  // ── WebSocket ──────────────────────────────────────────────
+  if (protocol === 'ws') {
+    const cmd = payload
+      ? `echo '${payload.replace(/'/g, "'\\''")}' | wscat -c '${target}' -w 5 2>&1`
+      : `wscat -c '${target}' -w 5 2>&1`;
+
+    try {
+      const output = execSync(cmd, { timeout: 17000, encoding: 'utf8', maxBuffer: 1024 * 500 });
+
+      const result = {
+        protocol: 'ws',
+        command: cmd,
+        output: output.substring(0, 12000),
+      };
+
+      if (playground) {
+        return { status: 'playground', ...result, prompt_template: `WebSocket ${target} sent. Response: ${output.length}b.\nDoes this indicate a vulnerability? EXPLOIT_WORKED / EXPLOIT_FAILED / EXPLOIT_UNCERTAIN` };
+      }
+      return { status: 'done', ...result };
+    } catch (e) {
+      return { status: 'error', protocol: 'ws', error: e.message.substring(0, 500) };
+    }
+  }
+
+  // ── DNS ────────────────────────────────────────────────────
+  if (protocol === 'dns') {
+    const query = dnsServer ? `@${dnsServer}` : '';
+    const cmd = `dig ${query} '${target}' ${dnsType} +short 2>&1`;
+
+    try {
+      const output = execSync(cmd, { timeout: 10000, encoding: 'utf8', maxBuffer: 1024 * 100 });
+
+      const result = {
+        protocol: 'dns',
+        command: cmd,
+        records: output.trim().split('\n').filter(Boolean),
+        raw: output.substring(0, 2000),
+      };
+
+      if (playground) {
+        return { status: 'playground', ...result, prompt_template: `DNS ${dnsType} lookup for ${target}: ${result.records.length} records.\nDoes this reveal anything useful? EXPLOIT_WORKED / EXPLOIT_FAILED / EXPLOIT_UNCERTAIN` };
+      }
+      return { status: 'done', ...result };
+    } catch (e) {
+      return { status: 'error', protocol: 'dns', error: e.message.substring(0, 500) };
+    }
+  }
+
+  // ── HTTP (original) ────────────────────────────────────────
   const parts = ['curl', '-s', '-k', '-L', '--max-time', '15'];
 
-  // Method
   if (m !== 'GET') parts.push('-X', m);
 
-  // Headers
   for (const h of headers) {
     parts.push('-H', h.replace(/'/g, "\\'"));
   }
@@ -79,16 +140,10 @@ function execute(target, opts = {}) {
   if (cookie) parts.push('-H', `Cookie: ${cookie}`);
   if (agent) parts.push('-H', `User-Agent: ${agent}`);
 
-  // Body or param injection
-  // URL
-  let urlAdded = false;
-
   if (body) {
     parts.push('-d', body);
     parts.push(`'${target}'`);
-    urlAdded = true;
   } else if (payload && param) {
-    // Inject payload into query param
     const url = new URL(target);
     url.searchParams.set(param, payload);
     parts.push(`'${url.toString()}'`);
@@ -99,7 +154,6 @@ function execute(target, opts = {}) {
     parts.push(`'${target}'`);
   }
 
-  // Output control
   if (!raw && !playground) {
     parts.push('-w', '\\nHTTP_CODE:%{http_code}|SIZE:%{size_download}|TIME:%{time_total}');
   }
@@ -108,38 +162,28 @@ function execute(target, opts = {}) {
 
   try {
     const output = execSync(cmd, { timeout: 17000, encoding: 'utf8', maxBuffer: 1024 * 500 });
+    const httpCode = output.match(/HTTP_CODE:(\d+)/)?.[1] || 'unknown';
+    const meta = output.match(/HTTP_CODE:(\d+)\|SIZE:([^|]+)\|TIME:([^\s]+)/);
 
     if (playground) {
       return {
         status: 'playground',
-        curl_command: cmd.replace(/'/g, ''),
-        response: {
-          http_code: extractCode(output),
-          body: output.substring(0, 12000),
-          size: output.length,
-        },
-        prompt_template: `Payload executed against ${target} [${m}]. HTTP: ${extractCode(output)} | Body: ${output.length} bytes | ${path.basename(target)}.\nDoes this look like a successful exploitation? Respond with: EXPLOIT_WORKED, EXPLOIT_FAILED, or EXPLOIT_UNCERTAIN.`,
+        protocol: 'http',
+        command: cmd.replace(/'/g, ''),
+        response: { http_code: httpCode, body: output.substring(0, 12000), size: output.length },
+        prompt_template: `HTTP ${m} ${target} → ${httpCode} | ${output.length}b.\nExploitation successful? EXPLOIT_WORKED / EXPLOIT_FAILED / EXPLOIT_UNCERTAIN`,
       };
     }
 
     return {
       status: 'done',
+      protocol: 'http',
       output: output.substring(0, 12000),
-      metadata: extractMetadata(output),
+      metadata: meta ? { http_code: meta[1], size: meta[2], time: meta[3] } : { http_code: httpCode },
     };
   } catch (e) {
-    return { status: 'error', error: e.message.substring(0, 500) };
+    return { status: 'error', protocol: 'http', error: e.message.substring(0, 500) };
   }
-}
-
-function extractCode(output) {
-  const m = output.match(/HTTP_CODE:(\d+)/);
-  return m ? m[1] : 'unknown';
-}
-
-function extractMetadata(output) {
-  const m = output.match(/HTTP_CODE:(\d+)\|SIZE:([^|]+)\|TIME:([^\s]+)/);
-  return m ? { http_code: m[1], size: m[2], time: m[3] } : { http_code: 'unknown' };
 }
 
 // ─── Chain Proposal ───────────────────────────────────────────────
@@ -202,7 +246,7 @@ function main() {
         chain: 'Propose attack chains from a confirmed finding. Usage: --mode chain --finding \'{"class":"cors","technique":"wildcard-credentials","severity":"high"}\'',
       },
       exec_options: {
-        '--target': 'Target URL (required)',
+        '--target': 'Target URL or domain (required)',
         '--method': 'HTTP method (default: GET)',
         '--payload': 'Payload string',
         '--param': 'Query parameter name',
@@ -211,7 +255,10 @@ function main() {
         '--headers': 'Repeatable: --headers "X: a" --headers "Y: b"',
         '--cookie': 'Cookie header value',
         '--agent': 'User-Agent override',
-        '--playground': 'Show full curl command + output + prompt template',
+        '--protocol': 'Force protocol: auto (default), http, ws, dns',
+        '--dns-type': 'DNS record type: A, AAAA, TXT, CNAME, MX, NS (default: A)',
+        '--dns-server': 'Custom DNS server (dig @server)',
+        '--playground': 'Show full command + output + prompt template',
         '--raw': 'Return full response body (no metadata suffix)',
       },
       notes: 'Firefight debates are run by the opencode agent using @mentions to subagents in .opencode/agents/',
@@ -275,6 +322,9 @@ function main() {
       agent: args.agent,
       playground: args.playground,
       raw: args.raw,
+      protocol: args.protocol,
+      dnsType: args.dnsType,
+      dnsServer: args.dnsServer,
     });
 
     console.log(JSON.stringify(result, null, 2));

@@ -99,6 +99,12 @@ node scripts/firefight.js --mode exec --target "https://target.com/api/Users" --
 
 # Chain proposal from confirmed finding
 node scripts/firefight.js --mode chain --finding '{"class":"cors","technique":"wildcard-credentials","severity":"high"}'
+
+# DNS lookup (OOB detection)
+node scripts/firefight.js --mode exec --target attacker.com --dns-type TXT --playground
+
+# WebSocket test (OOB detection)
+node scripts/firefight.js --mode exec --target 'wss://target.com/ws' --payload '{"message":"test"}' --playground
 ```
 
 ### Config
