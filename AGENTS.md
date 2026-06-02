@@ -54,14 +54,14 @@ Orchestrated vulnerability debate + exploitation using opencode subagents.
 
 6 subagents are registered in `.opencode/agents/` and `opencode.json`:
 
-| @mention | Role | Stance |
-|----------|------|--------|
-| `@firefight-optimist` | Optimistic debater | Sees gold in everything, argues for exploitation |
-| `@firefight-skeptic` | Skeptical debater | Doubts everything, demands concrete proof |
-| `@firefight-engineer` | Exploit engineer | Thinks about practical payload, bypasses, encoding |
-| `@firefight-strategist` | Security strategist | Thinks about attack chaining, 2-3 steps ahead |
-| `@firefight-analyst` | Vulnerability analyst | Classifies the vuln, references skills and CWEs |
-| `@firefight-judge` | **Judge** | Votes, sets severity, classifies, recommends technique |
+| @mention | Role | Output Format |
+|----------|------|--------------|
+| `@firefight-optimist` | Optimistic debater | `{"stance":"FOR","severity":"...","technique":"...","argument":"...","skill_ref":"...","cwe":"..."}` |
+| `@firefight-skeptic` | Skeptical debater | `{"stance":"AGAINST|CAUTIOUS","false_positive_risk":"...","missing_evidence":[...],"argument":"...","skill_ref":"...","cwe":"..."}` |
+| `@firefight-engineer` | Exploit engineer | `{"approach":"...","payload":"...","technique":"...","skill_ref":"...","preconditions":[...],"bypass_notes":"...","firefight_cmd":"..."}` |
+| `@firefight-strategist` | Security strategist | `{"chains":[...],"primary_chain":"...","recommendation":"..."}` |
+| `@firefight-analyst` | Vulnerability analyst | `{"classification":{"primary":"...","technique":"...","cwes":[...],"severity":"..."},"evidence":{"confirmed":[...],"missing":[...]},"assessment":"..."}` |
+| `@firefight-judge` | **Judge** | `{"vote":"YES|NO","severity":"...","class":"...","technique":"...","confidence":"...","reasoning":"..."}` |
 
 ### Workflow
 
@@ -76,9 +76,19 @@ Round 5: @firefight-analyst   "History: [previous responses]. Your turn."
 Round 6: @firefight-judge    "All 5 responses above. Your verdict."
 ```
 
-Round 6 (judge) returns JSON: `{"vote":"YES/NO","severity":"low/med/high/crit","class":"xss","technique":"reflected","confidence":"high","reasoning":"..."}`
+Round 6 (judge) returns strict JSON. After all rounds, generate the structured report:
 
-If approved (>=3 YES), I load the matching skill and use `firefight.js` for execution.
+```bash
+node scripts/firefight.js --mode report \
+  --judge '{"vote":"YES",...}' \
+  --optimist '{...}' \
+  --skeptic '{...}' \
+  --engineer '{...}' \
+  --strategist '{...}' \
+  --analyst '{...}'
+```
+
+This produces a finding report with: verdict, severity, classification, CWEs, evidence (confirmed + missing), attack chains, consensus score, and debate quality metric.
 
 ### firefight.js — Execution Engine
 
@@ -114,6 +124,15 @@ node scripts/firefight.js --mode compress \
   --rounds '{"agent":"optimist","text":"arg..."}' \
   --rounds '{"agent":"skeptic","text":"counter..."}' \
   --rounds '{"agent":"engineer","text":"exploit..."}'
+
+# Generate structured finding report from all agent responses
+node scripts/firefight.js --mode report \
+  --judge '{"vote":"YES","severity":"critical","class":"xss","technique":"stored","confidence":"high","reasoning":"..."}' \
+  --optimist '{...}' \
+  --skeptic '{...}' \
+  --engineer '{...}' \
+  --strategist '{...}' \
+  --analyst '{...}'
 ```
 
 ### Config

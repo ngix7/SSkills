@@ -242,6 +242,73 @@ function probe(target) {
   return result;
 }
 
+// ─── Clean Code Fences from JSON ──────────────────────────────────
+
+function cleanJSON(raw) {
+  if (!raw || typeof raw !== 'string') return raw;
+  return raw
+    .replace(/^```(?:json)?\s*/i, '')
+    .replace(/\s*```\s*$/i, '')
+    .replace(/^`({.*})`$/s, '$1')
+    .trim();
+}
+
+// ─── Report Generator ─────────────────────────────────────────────
+
+function generateReport(agents) {
+  const parsed = {};
+  for (const [name, text] of Object.entries(agents)) {
+    try {
+      const cleaned = cleanJSON(text);
+      parsed[name] = JSON.parse(cleaned);
+    } catch (e) {
+      parsed[name] = { error: e.message, raw: (text || '').substring(0, 300) };
+    }
+  }
+
+  const judge = parsed.judge || {};
+  const analyst = parsed.analyst || {};
+  const strategist = parsed.strategist || {};
+
+  // Consensus scoring
+  const yesVotes = Object.values(parsed).filter(v =>
+    v.stance === 'FOR' || v.vote === 'YES'
+  ).length;
+  const totalVotes = Object.values(parsed).filter(v =>
+    v.stance || v.vote
+  ).length;
+
+  const score = {
+    total_agents: Object.keys(agents).length,
+    parsed_ok: Object.values(parsed).filter(v => !v.error).length,
+    parsed_error: Object.values(parsed).filter(v => v.error).length,
+    yes_votes: yesVotes,
+    total_votes: totalVotes,
+    consensus: totalVotes > 0 ? Math.round(yesVotes / totalVotes * 100) : 0,
+    debate_quality: totalVotes > 2 ? 'good' : 'insufficient',
+  };
+
+  const report = {
+    report_type: 'firefight_finding',
+    generated_at: new Date().toISOString(),
+    score,
+    verdict: judge.vote || 'UNKNOWN',
+    severity: judge.severity || analyst.classification?.severity || 'unknown',
+    classification: {
+      class: judge.class || analyst.classification?.primary || 'unknown',
+      technique: judge.technique || analyst.classification?.technique || 'unknown',
+      cwes: analyst.classification?.cwes || [],
+    },
+    evidence: analyst.evidence || { confirmed: [], missing: [] },
+    chains: strategist.chains || [],
+    primary_chain: strategist.primary_chain || null,
+    recommendation: strategist.recommendation || 'No recommendation',
+    raw_agents: parsed,
+  };
+
+  return report;
+}
+
 // ─── History Compressor ────────────────────────────────────────────
 
 function compressHistory(rounds) {
@@ -314,6 +381,7 @@ function main() {
         chain: 'Propose attack chains from a confirmed finding. Usage: --mode chain --finding \'{"class":"cors","technique":"wildcard-credentials","severity":"high"}\'',
         probe: 'Probe target for CORS config and public endpoints. Usage: --mode probe --target <url>',
         compress: 'Compress debate history for compact prompts. Usage: --mode compress --rounds \'{"agent":"opt","text":"..."}\' --rounds \'{"agent":"skep","text":"..."}\'',
+        report: 'Generate structured finding report from agent responses. Usage: --mode report --judge \'{"vote":"YES",...}\' --optimist \'{...}\' --skeptic \'{...}\' --engineer \'{...}\' --strategist \'{...}\' --analyst \'{...}\'',
       },
       exec_options: {
         '--target': 'Target URL or domain (required)', '--method': 'HTTP method (default: GET)',
@@ -380,6 +448,21 @@ function main() {
   if (mode === 'compress') {
     if (!args.rounds || args.rounds.length === 0) { console.log(JSON.stringify({ error: '--rounds is required (use multiple --rounds)' })); process.exit(1); }
     console.log(JSON.stringify(compressHistory(args.rounds), null, 2));
+    return;
+  }
+
+  // ── report ───────────────────────────────────────────────────
+  if (mode === 'report') {
+    if (!args.judge) { console.log(JSON.stringify({ error: '--judge is required (JSON string)' })); process.exit(1); }
+    const agents = {
+      optimist: args.optimist || '',
+      skeptic: args.skeptic || '',
+      engineer: args.engineer || '',
+      strategist: args.strategist || '',
+      analyst: args.analyst || '',
+      judge: args.judge,
+    };
+    console.log(JSON.stringify(generateReport(agents), null, 2));
     return;
   }
 
