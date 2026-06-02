@@ -91,8 +91,14 @@ node scripts/firefight.js --mode list
 # Load skill techniques
 node scripts/firefight.js --mode skill --class xss
 
-# Execute payload
-node scripts/firefight.js --mode exec --target "https://target.com/page?param=1" --payload "<script>alert(1)</script>" --method GET --param q
+# Execute payload with playground (shows curl + full output + prompt)
+node scripts/firefight.js --mode exec --target "https://target.com/page?param=1" --payload "<script>alert(1)</script>" --method GET --param q --playground
+
+# POST with JSON body and custom headers
+node scripts/firefight.js --mode exec --target "https://target.com/api/Users" --method POST --body '{"email":"x","password":"x","role":"admin"}' --type application/json --headers "Authorization: Bearer xxx" --headers "Origin: https://evil.com" --playground
+
+# Chain proposal from confirmed finding
+node scripts/firefight.js --mode chain --finding '{"class":"cors","technique":"wildcard-credentials","severity":"high"}'
 ```
 
 ### Config

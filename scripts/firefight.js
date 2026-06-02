@@ -8,7 +8,20 @@ const args = {};
 for (let i = 2; i < process.argv.length; i++) {
   if (process.argv[i].startsWith('--')) {
     const key = process.argv[i].slice(2);
-    args[key] = process.argv[++i] || true;
+
+    // Support repeatable --headers by collecting into array
+    if (key === 'headers') {
+      if (!args.headers) args.headers = [];
+      args.headers.push(process.argv[++i]);
+      continue;
+    }
+
+    const next = process.argv[i + 1];
+    if (next !== undefined && !next.startsWith('--')) {
+      args[key] = process.argv[++i];
+    } else {
+      args[key] = true;
+    }
   }
 }
 
@@ -36,33 +49,142 @@ function loadSkill(vulnClass) {
   return { router, techniques };
 }
 
-// ─── Execute Payload ──────────────────────────────────────────────
+// ─── Execute Payload (robusto) ────────────────────────────────────
 
-function execute(target, payload, method, param, header) {
-  const url = new URL(target);
-  const m = (method || 'GET').toUpperCase();
-  const p = payload || '';
-  const h = header || '';
+function execute(target, opts = {}) {
+  const {
+    payload,
+    method = 'GET',
+    param,
+    headers = [],
+    body,
+    contentType,
+    cookie,
+    agent,
+    playground,
+    raw,
+  } = opts;
 
-  let cmd;
-  if (h) {
-    // Custom header mode (e.g., CORS Origin testing)
-    cmd = `curl -s -H '${h.replace(/'/g, "\\'")}' '${target}' -m 15 -o /dev/null -w 'HTTP %{http_code} | Size: %{size_download} | Time: %{time_total}s'`;
-  } else if (m === 'POST') {
-    cmd = `curl -s -X POST '${target}' -d '${param}=${encodeURIComponent(p)}' -m 15`;
-  } else if (param) {
-    url.searchParams.set(param, p);
-    cmd = `curl -s '${url.toString()}' -m 15`;
-  } else {
-    cmd = `curl -s '${target}' -m 15`;
+  const m = method.toUpperCase();
+  const parts = ['curl', '-s', '-k', '-L', '--max-time', '15'];
+
+  // Method
+  if (m !== 'GET') parts.push('-X', m);
+
+  // Headers
+  for (const h of headers) {
+    parts.push('-H', h.replace(/'/g, "\\'"));
   }
+  if (contentType) parts.push('-H', `Content-Type: ${contentType}`);
+  if (cookie) parts.push('-H', `Cookie: ${cookie}`);
+  if (agent) parts.push('-H', `User-Agent: ${agent}`);
+
+  // Body or param injection
+  // URL
+  let urlAdded = false;
+
+  if (body) {
+    parts.push('-d', body);
+    parts.push(`'${target}'`);
+    urlAdded = true;
+  } else if (payload && param) {
+    // Inject payload into query param
+    const url = new URL(target);
+    url.searchParams.set(param, payload);
+    parts.push(`'${url.toString()}'`);
+  } else if (payload && m === 'POST') {
+    parts.push('-d', `${param || 'input'}=${encodeURIComponent(payload)}`);
+    parts.push(`'${target}'`);
+  } else {
+    parts.push(`'${target}'`);
+  }
+
+  // Output control
+  if (!raw && !playground) {
+    parts.push('-w', '\\nHTTP_CODE:%{http_code}|SIZE:%{size_download}|TIME:%{time_total}');
+  }
+
+  const cmd = parts.join(' ');
 
   try {
     const output = execSync(cmd, { timeout: 17000, encoding: 'utf8', maxBuffer: 1024 * 500 });
-    return { success: true, output: output.substring(0, 8000) };
+
+    if (playground) {
+      return {
+        status: 'playground',
+        curl_command: cmd.replace(/'/g, ''),
+        response: {
+          http_code: extractCode(output),
+          body: output.substring(0, 12000),
+          size: output.length,
+        },
+        prompt_template: `Payload executed against ${target} [${m}]. HTTP: ${extractCode(output)} | Body: ${output.length} bytes | ${path.basename(target)}.\nDoes this look like a successful exploitation? Respond with: EXPLOIT_WORKED, EXPLOIT_FAILED, or EXPLOIT_UNCERTAIN.`,
+      };
+    }
+
+    return {
+      status: 'done',
+      output: output.substring(0, 12000),
+      metadata: extractMetadata(output),
+    };
   } catch (e) {
-    return { success: false, error: e.message.substring(0, 500) };
+    return { status: 'error', error: e.message.substring(0, 500) };
   }
+}
+
+function extractCode(output) {
+  const m = output.match(/HTTP_CODE:(\d+)/);
+  return m ? m[1] : 'unknown';
+}
+
+function extractMetadata(output) {
+  const m = output.match(/HTTP_CODE:(\d+)\|SIZE:([^|]+)\|TIME:([^\s]+)/);
+  return m ? { http_code: m[1], size: m[2], time: m[3] } : { http_code: 'unknown' };
+}
+
+// ─── Chain Proposal ───────────────────────────────────────────────
+
+function chainProposal(finding) {
+  let parsed;
+  try {
+    parsed = typeof finding === 'string' ? JSON.parse(finding) : finding;
+  } catch {
+    return { error: 'Invalid --finding JSON' };
+  }
+
+  const vulnClass = parsed.class;
+  const technique = parsed.technique;
+  if (!vulnClass) return { error: 'finding.class is required' };
+
+  // Load the same-class skill
+  const skill = loadSkill(vulnClass);
+  const otherTechniques = skill
+    ? Object.keys(skill.techniques).filter(t => t !== technique)
+    : [];
+
+  // Search for cross-class chain opportunities
+  const allClasses = fs.readdirSync(SKILL_DIR).filter(f =>
+    fs.statSync(path.join(SKILL_DIR, f)).isDirectory()
+  );
+
+  const crossClass = allClasses
+    .filter(c => c !== vulnClass)
+    .map(c => ({ class: c, techniques: Object.keys(loadSkill(c)?.techniques || {}) }));
+
+  return {
+    status: 'chain_proposal',
+    current: { class: vulnClass, technique, severity: parsed.severity || 'unknown' },
+    same_class_chains: otherTechniques.map(t => ({
+      technique: t,
+      question: `After ${technique}, can you chain with ${t} in the same class?`,
+    })),
+    cross_class_chains: crossClass.map(c => ({
+      class: c.class,
+      techniques: c.techniques,
+      question: `Can ${technique} (${vulnClass}) chain with any ${c.class} technique?`,
+    })),
+    strategist_prompt: `Confirmed finding: ${vulnClass}/${technique} (severity: ${parsed.severity}).\nAvailable techniques in same class: ${otherTechniques.join(', ') || 'none'}\nCross-class options: ${crossClass.map(c => c.class).join(', ') || 'none'}\n\nWhat is the best chain? Recommend only 1-2 techniques max. Output as JSON: {"chains":[{"technique":"...","class":"...","reason":"..."}]}`,
+  };
 }
 
 // ─── Main ─────────────────────────────────────────────────────────
@@ -74,11 +196,25 @@ function main() {
   if (mode === 'help' || args.help) {
     console.log(JSON.stringify({
       commands: {
-        skill: 'Show skill techniques for a vulnerability class. Usage: --mode skill --class xss',
-        exec: 'Execute a payload. Usage: --mode exec --target <url> --payload <payload> [--method GET --param name --header "Origin: https://x.com"]',
-        list: 'List all available skills'
+        skill: 'Show skill techniques. Usage: --mode skill --class xss',
+        list: 'List all available skills',
+        exec: 'Execute a payload. Usage: --mode exec --target <url> [options]',
+        chain: 'Propose attack chains from a confirmed finding. Usage: --mode chain --finding \'{"class":"cors","technique":"wildcard-credentials","severity":"high"}\'',
       },
-      notes: 'Firefight debates are run by the opencode agent using @mentions to subagents in .opencode/agents/'
+      exec_options: {
+        '--target': 'Target URL (required)',
+        '--method': 'HTTP method (default: GET)',
+        '--payload': 'Payload string',
+        '--param': 'Query parameter name',
+        '--body': 'Request body for POST/PUT/PATCH',
+        '--type': 'Content-Type override',
+        '--headers': 'Repeatable: --headers "X: a" --headers "Y: b"',
+        '--cookie': 'Cookie header value',
+        '--agent': 'User-Agent override',
+        '--playground': 'Show full curl command + output + prompt template',
+        '--raw': 'Return full response body (no metadata suffix)',
+      },
+      notes: 'Firefight debates are run by the opencode agent using @mentions to subagents in .opencode/agents/',
     }, null, 2));
     return;
   }
@@ -115,30 +251,49 @@ function main() {
       class: vulnClass,
       router_summary: (skill.router || '').substring(0, 2000),
       techniques: Object.keys(skill.techniques),
-      technique_details: skill.techniques
+      technique_details: skill.techniques,
     }, null, 2));
     return;
   }
 
-  // ── exec ────────────────────────────────────────────────────
+  // ── exec (robusto) ──────────────────────────────────────────
   if (mode === 'exec') {
     const target = args.target;
-    const payload = args.payload;
-    const method = args.method || 'GET';
-    const param = args.param;
-
-    if (!target || (!payload && !args.header)) {
-      console.log(JSON.stringify({ error: '--target and --payload (or --header) are required' }));
+    if (!target) {
+      console.log(JSON.stringify({ error: '--target is required' }));
       process.exit(1);
     }
 
-    const header = args.header;
-    const result = execute(target, payload, method, param, header);
+    const result = execute(target, {
+      payload: args.payload,
+      method: args.method,
+      param: args.param,
+      headers: args.headers || [],
+      body: args.body,
+      contentType: args.type,
+      cookie: args.cookie,
+      agent: args.agent,
+      playground: args.playground,
+      raw: args.raw,
+    });
+
     console.log(JSON.stringify(result, null, 2));
     return;
   }
 
-  console.log(JSON.stringify({ error: 'Unknown mode. Use --mode help' }));
+  // ── chain ───────────────────────────────────────────────────
+  if (mode === 'chain') {
+    if (!args.finding) {
+      console.log(JSON.stringify({ error: '--finding is required (JSON string)' }));
+      process.exit(1);
+    }
+
+    const result = chainProposal(args.finding);
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  console.log(JSON.stringify({ error: `Unknown mode '${mode}'. Use --mode help` }));
 }
 
 main();
