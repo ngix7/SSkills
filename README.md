@@ -27,7 +27,6 @@ Each skill contains:
 - `skill.json` — machine metadata
 - `README.md` — human entrypoint
 - `router.md` — triage rules
-- `safety.md` — hard gates
 - `output-schema.json` — structured output
 - `sources.json` — references
 - `techniques/` — technique cards
