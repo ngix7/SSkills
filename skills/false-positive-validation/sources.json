@@ -1,0 +1,7 @@
+{
+  "sources": [
+    { "name": "PortSwigger Research", "url": "https://portswigger.net/research" },
+    { "name": "OWASP Testing Guide", "url": "https://owasp.org/www-project-web-security-testing-guide/" },
+    { "name": "CWE", "url": "https://cwe.mitre.org/" }
+  ]
+}

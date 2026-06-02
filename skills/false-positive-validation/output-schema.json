@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["finding", "confidence", "technique", "verdict"],
+  "properties": {
+    "finding": { "type": "string", "description": "The vulnerability class being validated" },
+    "confidence": { "type": "string", "enum": ["confirmed", "likely", "inconclusive", "false-positive"] },
+    "verdict": { "type": "string", "enum": ["report", "investigate", "discard"] },
+    "technique": { "type": "string" },
+    "reproducible": { "type": "boolean" },
+    "controls_output": { "type": "boolean" },
+    "rejection_reason": { "type": "string", "description": "Why it was marked false positive" },
+    "evidence": { "type": "string" },
+    "baseline_comparison": { "type": "string", "description": "How benign vs malicious differ" }
+  }
+}

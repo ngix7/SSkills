@@ -1,6 +1,12 @@
 {
   "skills": [
     {
+      "slug": "false-positive-validation",
+      "name": "False Positive Validation & Triage",
+      "description": "Methodology to distinguish real vulnerabilities from false positives across all websec classes"
+    },
+    {
+    {
       "slug": "xss",
       "name": "Cross-Site Scripting",
       "description": "Reflected, stored, and DOM-based XSS detection and exploitation"

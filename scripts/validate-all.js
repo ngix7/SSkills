@@ -1,5 +1,5 @@
 const { execSync } = require('child_process');
-const skills = ['xss','sql-injection','csrf','ssrf','authentication-bypass','idor','xxe','command-injection','lfi-rfi','api-security'];
+const skills = ['xss','sql-injection','csrf','ssrf','authentication-bypass','idor','xxe','command-injection','lfi-rfi','api-security','false-positive-validation'];
 let failed = 0;
 for (const s of skills) {
   try {

@@ -1,0 +1,22 @@
+{
+  "slug": "false-positive-validation",
+  "name": "False Positive Validation & Triage",
+  "description": "Methodology to distinguish real vulnerabilities from false positives across all websec classes",
+  "version": "1.0.0",
+  "safety_posture": "analysis_only",
+  "requires_auth": false,
+  "signal_classes": ["confirmed", "false-positive", "inconclusive", "informational"],
+  "technique_map": {
+    "general-triage": "General Triage Methodology",
+    "xss-validation": "XSS False Positive Validation",
+    "sqli-validation": "SQL Injection False Positive Validation",
+    "jwt-validation": "JWT Attack False Positive Validation",
+    "idor-validation": "IDOR False Positive Validation",
+    "xxe-validation": "XXE False Positive Validation",
+    "ssrf-validation": "SSRF False Positive Validation",
+    "csrf-validation": "CSRF False Positive Validation",
+    "cmdi-validation": "Command Injection False Positive Validation",
+    "lfi-validation": "LFI/RFI False Positive Validation",
+    "api-validation": "API Security False Positive Validation"
+  }
+}
