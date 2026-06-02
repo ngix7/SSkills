@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["engine", "confirmation", "payload", "evidence"],
+  "properties": {
+    "engine": {
+      "type": "string",
+      "enum": ["jinja2", "twig", "freemarker", "velocity", "pug", "handlebars", "erb", "unknown"]
+    },
+    "confirmation": { "type": "string", "enum": ["math", "read", "rce"] },
+    "payload": { "type": "string" },
+    "evidence": { "type": "string" },
+    "parameter": { "type": "string" },
+    "endpoint": { "type": "string", "format": "uri" },
+    "impact": { "type": "string" },
+    "remediation": { "type": "string", "default": "Use proper escaping. Never pass user input directly to template engine." }
+  }
+}

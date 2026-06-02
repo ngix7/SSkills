@@ -1,0 +1,20 @@
+{
+  "slug": "ssti",
+  "name": "Server-Side Template Injection",
+  "description": "Detection and exploitation of SSTI across Jinja2, Twig, Freemarker, Velocity, Pug, Handlebars, ERB, and others",
+  "version": "1.0.0",
+  "safety_posture": "analysis_only",
+  "requires_auth": false,
+  "signal_classes": ["ssti-detected", "ssti-confirmed", "ssti-rce"],
+  "technique_map": {
+    "detection": "SSTI Detection — universal probes and context identification",
+    "jinja2": "Jinja2 / Python — template inject, filter bypass, RCE",
+    "twig": "Twig / PHP — template injection, RCE, sandbox escape",
+    "freemarker": "Freemarker / Java — expression injection, RCE",
+    "velocity": "Velocity / Java — template injection, RCE",
+    "jade-pug": "Pug / Jade — JavaScript SSTI, RCE",
+    "handlebars": "Handlebars / Mustache — limited SSTI, prototype pollution",
+    "erb": "ERB / Ruby — template injection, RCE",
+    "blind-ssti": "Blind SSTI — out-of-band detection when no output visible"
+  }
+}
