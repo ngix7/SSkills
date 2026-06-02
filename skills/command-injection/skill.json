@@ -1,0 +1,18 @@
+{
+  "slug": "command-injection",
+  "name": "Command Injection",
+  "description": "Detection and exploitation of OS command injection vulnerabilities",
+  "version": "1.0.0",
+  "safety_posture": "analysis_only",
+  "requires_auth": true,
+  "signal_classes": [
+    "vulnerability",
+    "misconfiguration"
+  ],
+  "technique_map": {
+    "in-band-cmdi": "In-Band Command Injection",
+    "blind-time-cmdi": "Blind Time-Based",
+    "blind-oob-cmdi": "Blind OOB Command Injection",
+    "filter-bypass": "Filter Bypass"
+  }
+}

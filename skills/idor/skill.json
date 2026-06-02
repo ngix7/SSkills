@@ -1,0 +1,19 @@
+{
+  "slug": "idor",
+  "name": "Insecure Direct Object References",
+  "description": "Detection and exploitation of IDOR and access control vulnerabilities",
+  "version": "1.0.0",
+  "safety_posture": "analysis_only",
+  "requires_auth": true,
+  "signal_classes": [
+    "vulnerability",
+    "misconfiguration"
+  ],
+  "technique_map": {
+    "uuid-enum": "UUID/ID Enumeration",
+    "param-manip": "Parameter Manipulation",
+    "horizontal-privesc": "Horizontal Privilege Escalation",
+    "vertical-privesc": "Vertical Privilege Escalation",
+    "mass-assignment": "Mass Assignment"
+  }
+}

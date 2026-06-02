@@ -1,0 +1,54 @@
+{
+  "skills": [
+    {
+      "slug": "xss",
+      "name": "Cross-Site Scripting",
+      "description": "Reflected, stored, and DOM-based XSS detection and exploitation"
+    },
+    {
+      "slug": "sql-injection",
+      "name": "SQL Injection",
+      "description": "Error-based, blind, time-based, and out-of-band SQL injection"
+    },
+    {
+      "slug": "csrf",
+      "name": "Cross-Site Request Forgery",
+      "description": "CSRF token analysis, SameSite bypasses, multi-step CSRF"
+    },
+    {
+      "slug": "ssrf",
+      "name": "Server-Side Request Forgery",
+      "description": "Cloud metadata, internal scanning, protocol smuggling SSRF"
+    },
+    {
+      "slug": "authentication-bypass",
+      "name": "Authentication Bypass",
+      "description": "JWT attacks, OAuth misconfig, session hijacking, 2FA bypass"
+    },
+    {
+      "slug": "idor",
+      "name": "IDOR & Access Control",
+      "description": "Insecure direct object references, privilege escalation"
+    },
+    {
+      "slug": "xxe",
+      "name": "XML External Entity Injection",
+      "description": "In-band, blind/OOB XXE, XInclude, SVG XXE"
+    },
+    {
+      "slug": "command-injection",
+      "name": "Command Injection",
+      "description": "Blind, OOB, time-based command injection detection and exploitation"
+    },
+    {
+      "slug": "lfi-rfi",
+      "name": "File Inclusion & Path Traversal",
+      "description": "LFI, RFI, PHP wrappers, log poisoning, path traversal"
+    },
+    {
+      "slug": "api-security",
+      "name": "API Security",
+      "description": "REST, GraphQL, tRPC testing, mass assignment, rate limiting"
+    }
+  ]
+}

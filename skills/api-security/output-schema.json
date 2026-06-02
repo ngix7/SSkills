@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "vulnerability",
+    "severity",
+    "technique",
+    "evidence"
+  ],
+  "properties": {
+    "vulnerability": {
+      "type": "string",
+      "description": "API Security Testing vulnerability"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "technique": {
+      "type": "string",
+      "enum": [
+        "rest-fuzzing",
+        "graphql-introspection",
+        "graphql-depth",
+        "trpc-enum",
+        "rate-limit-api",
+        "mass-assignment-api"
+      ]
+    },
+    "endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "parameter": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "string",
+      "description": "Observed evidence of the vulnerability"
+    },
+    "impact": {
+      "type": "string"
+    },
+    "remediation": {
+      "type": "string"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

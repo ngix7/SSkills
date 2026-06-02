@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "vulnerability",
+    "severity",
+    "technique",
+    "evidence"
+  ],
+  "properties": {
+    "vulnerability": {
+      "type": "string",
+      "description": "Command Injection vulnerability"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "technique": {
+      "type": "string",
+      "enum": [
+        "in-band-cmdi",
+        "blind-time-cmdi",
+        "blind-oob-cmdi",
+        "filter-bypass"
+      ]
+    },
+    "endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "parameter": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "string",
+      "description": "Observed evidence of the vulnerability"
+    },
+    "impact": {
+      "type": "string"
+    },
+    "remediation": {
+      "type": "string"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

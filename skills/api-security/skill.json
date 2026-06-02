@@ -1,0 +1,20 @@
+{
+  "slug": "api-security",
+  "name": "API Security Testing",
+  "description": "Comprehensive API security testing for REST, GraphQL, and tRPC",
+  "version": "1.0.0",
+  "safety_posture": "analysis_only",
+  "requires_auth": true,
+  "signal_classes": [
+    "vulnerability",
+    "misconfiguration"
+  ],
+  "technique_map": {
+    "rest-fuzzing": "REST API Fuzzing",
+    "graphql-introspection": "GraphQL Introspection",
+    "graphql-depth": "GraphQL Depth/Query Batching",
+    "trpc-enum": "tRPC Enumeration",
+    "rate-limit-api": "Rate Limit Testing",
+    "mass-assignment-api": "Mass Assignment"
+  }
+}

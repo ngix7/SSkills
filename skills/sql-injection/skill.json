@@ -1,0 +1,20 @@
+{
+  "slug": "sql-injection",
+  "name": "SQL Injection",
+  "description": "Detection and exploitation of SQL injection vulnerabilities across major DBMS",
+  "version": "1.0.0",
+  "safety_posture": "analysis_only",
+  "requires_auth": true,
+  "signal_classes": [
+    "vulnerability",
+    "misconfiguration"
+  ],
+  "technique_map": {
+    "error-based": "Error-Based SQLi",
+    "union-based": "UNION-Based SQLi",
+    "blind-boolean": "Blind Boolean SQLi",
+    "blind-time": "Blind Time-Based SQLi",
+    "oob-sqli": "Out-of-Band SQLi",
+    "second-order": "Second-Order SQLi"
+  }
+}

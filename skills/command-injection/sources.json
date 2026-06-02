@@ -1,0 +1,16 @@
+{
+  "sources": [
+    {
+      "name": "OWASP",
+      "url": "https://owasp.org/www-community/command-injection"
+    },
+    {
+      "name": "PortSwigger Research",
+      "url": "https://portswigger.net/web-security/command-injection"
+    },
+    {
+      "name": "CWE",
+      "url": "https://cwe.mitre.org/"
+    }
+  ]
+}

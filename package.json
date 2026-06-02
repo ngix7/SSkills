@@ -1,0 +1,19 @@
+{
+  "name": "sskills",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Web Security Skills - Structured specialist knowledge for security testing",
+  "scripts": {
+    "validate": "node scripts/validate-all.js",
+    "validate:xss": "node skills/xss/scripts/validate.js",
+    "validate:sql-injection": "node skills/sql-injection/scripts/validate.js",
+    "validate:csrf": "node skills/csrf/scripts/validate.js",
+    "validate:ssrf": "node skills/ssrf/scripts/validate.js",
+    "validate:auth-bypass": "node skills/authentication-bypass/scripts/validate.js",
+    "validate:idor": "node skills/idor/scripts/validate.js",
+    "validate:xxe": "node skills/xxe/scripts/validate.js",
+    "validate:cmd-injection": "node skills/command-injection/scripts/validate.js",
+    "validate:lfi-rfi": "node skills/lfi-rfi/scripts/validate.js",
+    "validate:api-security": "node skills/api-security/scripts/validate.js"
+  }
+}

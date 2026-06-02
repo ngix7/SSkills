@@ -1,0 +1,19 @@
+{
+  "slug": "lfi-rfi",
+  "name": "File Inclusion & Path Traversal",
+  "description": "Detection and exploitation of LFI, RFI, and path traversal vulnerabilities",
+  "version": "1.0.0",
+  "safety_posture": "analysis_only",
+  "requires_auth": true,
+  "signal_classes": [
+    "vulnerability",
+    "misconfiguration"
+  ],
+  "technique_map": {
+    "path-traversal": "Path Traversal",
+    "php-wrappers": "PHP Wrappers",
+    "log-poisoning": "Log Poisoning",
+    "rfi": "Remote File Inclusion",
+    "windows-traversal": "Windows Traversal"
+  }
+}

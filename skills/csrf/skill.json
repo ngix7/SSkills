@@ -1,0 +1,19 @@
+{
+  "slug": "csrf",
+  "name": "Cross-Site Request Forgery",
+  "description": "Detection and exploitation of CSRF vulnerabilities",
+  "version": "1.0.0",
+  "safety_posture": "analysis_only",
+  "requires_auth": true,
+  "signal_classes": [
+    "vulnerability",
+    "misconfiguration"
+  ],
+  "technique_map": {
+    "token-analysis": "Token Analysis",
+    "samesite-bypass": "SameSite Bypass",
+    "multistep-csrf": "Multi-Step CSRF",
+    "cookie-forcing": "Cookie Forcing",
+    "referer-origin": "Referer/Origin Check Bypass"
+  }
+}

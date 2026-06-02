@@ -1,0 +1,16 @@
+{
+  "sources": [
+    {
+      "name": "OWASP",
+      "url": "https://owasp.org/www-community/authentication-bypass"
+    },
+    {
+      "name": "PortSwigger Research",
+      "url": "https://portswigger.net/web-security/authentication-bypass"
+    },
+    {
+      "name": "CWE",
+      "url": "https://cwe.mitre.org/"
+    }
+  ]
+}

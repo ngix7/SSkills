@@ -1,0 +1,21 @@
+{
+  "slug": "xss",
+  "name": "Cross-Site Scripting",
+  "description": "Detection and exploitation of reflected, stored, and DOM-based XSS vulnerabilities",
+  "version": "1.0.0",
+  "safety_posture": "analysis_only",
+  "requires_auth": true,
+  "signal_classes": [
+    "vulnerability",
+    "misconfiguration"
+  ],
+  "technique_map": {
+    "reflected": "Reflected XSS",
+    "stored": "Stored XSS",
+    "dom-based": "DOM-Based XSS",
+    "context-analysis": "Context Analysis",
+    "csp-bypass": "CSP Bypass",
+    "waf-bypass": "WAF Bypass",
+    "mutation-xss": "Mutation XSS (mXSS)"
+  }
+}
