@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "vulnerability",
+    "severity",
+    "technique",
+    "variant",
+    "evidence"
+  ],
+  "properties": {
+    "vulnerability": {
+      "type": "string",
+      "description": "HTTP Request Smuggling vulnerability"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "technique": {
+      "type": "string",
+      "enum": [
+        "detection",
+        "cl-te",
+        "te-cl",
+        "te-te",
+        "impact"
+      ]
+    },
+    "variant": {
+      "type": "string",
+      "enum": [
+        "CL.TE",
+        "TE.CL",
+        "TE.TE",
+        "CL.0",
+        "H2.CL",
+        "H2.TE",
+        "unknown"
+      ]
+    },
+    "endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "evidence": {
+      "type": "string",
+      "description": "Observed evidence of the parser discrepancy"
+    },
+    "impact": {
+      "type": "string",
+      "description": "Potential impact: cache poisoning, hijacking, WAF bypass"
+    },
+    "remediation": {
+      "type": "string"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

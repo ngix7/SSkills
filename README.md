@@ -37,20 +37,29 @@ Requires `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` in environment. Uses model and 
 
 | # | Skill | Focus |
 |---|-------|-------|
-| 1 | [XSS](skills/xss/README.md) | Cross-Site Scripting (reflected, stored, DOM) |
-| 2 | [SQL Injection](skills/sql-injection/README.md) | SQLi (error, blind, time, OOB) |
-| 3 | [CSRF](skills/csrf/README.md) | Cross-Site Request Forgery |
-| 4 | [SSRF](skills/ssrf/README.md) | Server-Side Request Forgery |
-| 5 | [Auth Bypass](skills/authentication-bypass/README.md) | JWT, OAuth, session, 2FA |
-| 6 | [IDOR](skills/idor/README.md) | Insecure Direct Object References |
-| 7 | [XXE](skills/xxe/README.md) | XML External Entity Injection |
-| 8 | [CMD Injection](skills/command-injection/README.md) | OS Command Injection |
-| 9 | [LFI/RFI](skills/lfi-rfi/README.md) | File Inclusion & Path Traversal |
-| 10 | [API Security](skills/api-security/README.md) | REST, GraphQL, tRPC |
-| 11 | [Wayback Recon](skills/wayback-recon/README.md) | Historical URL recon & passive discovery |
-| 12 | [SSTI](skills/ssti/README.md) | Server-Side Template Injection (Jinja2, Twig, Freemarker, ERB) |
-| 13 | [Subdomain Enum](skills/subdomain-enum/README.md) | DNS brute-force, CT logs, passive DNS, zone transfer |
-| 14 | [FP Validation](skills/false-positive-validation/README.md) | False positive detection & triage |
+| 1 | [Race Condition](skills/race-condition/README.md) | Concurrent request exploitation, TOCTOU, limit overrun |
+| 2 | [Request Smuggling](skills/smuggling/README.md) | CL.TE, TE.CL, TE.TE smuggling |
+| 3 | [Cache Poisoning](skills/cache-poisoning/README.md) | Unkeyed input poisoning, cache deception |
+| 4 | [Deserialization](skills/deserialization/README.md) | PHP, Java, Python, Ruby deserialization RCE |
+| 5 | [NoSQL Injection](skills/nosql-injection/README.md) | MongoDB $ne/$regex, blind NoSQL, JSON body |
+| 6 | [Prototype Pollution](skills/prototype-pollution/README.md) | Client/server-side PP, gadget chains, RCE |
+| 7 | [Open Redirect](skills/open-redirect/README.md) | URL bypass, parameter injection, chaining |
+| 8 | [CORS Misconfig](skills/cors/README.md) | Origin reflection, wildcard+credentials, preflight |
+| 9 | [Business Logic](skills/business-logic/README.md) | Workflow bypass, price manipulation, 2FA skip |
+| 10 | [XSS](skills/xss/README.md) | Cross-Site Scripting (reflected, stored, DOM) |
+| 11 | [SQL Injection](skills/sql-injection/README.md) | SQLi (error, blind, time, OOB) |
+| 12 | [CSRF](skills/csrf/README.md) | Cross-Site Request Forgery |
+| 13 | [SSRF](skills/ssrf/README.md) | Server-Side Request Forgery |
+| 14 | [Auth Bypass](skills/authentication-bypass/README.md) | JWT, OAuth, session, 2FA |
+| 15 | [IDOR](skills/idor/README.md) | Insecure Direct Object References |
+| 16 | [XXE](skills/xxe/README.md) | XML External Entity Injection |
+| 17 | [CMD Injection](skills/command-injection/README.md) | OS Command Injection |
+| 18 | [LFI/RFI](skills/lfi-rfi/README.md) | File Inclusion & Path Traversal |
+| 19 | [API Security](skills/api-security/README.md) | REST, GraphQL, tRPC |
+| 20 | [Wayback Recon](skills/wayback-recon/README.md) | Historical URL recon & passive discovery |
+| 21 | [SSTI](skills/ssti/README.md) | Server-Side Template Injection (Jinja2, Twig, Freemarker, ERB) |
+| 22 | [Subdomain Enum](skills/subdomain-enum/README.md) | DNS brute-force, CT logs, passive DNS, zone transfer |
+| 23 | [FP Validation](skills/false-positive-validation/README.md) | False positive detection & triage |
 
 ## Structure
 

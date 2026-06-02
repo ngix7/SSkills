@@ -1,0 +1,20 @@
+{
+  "sources": [
+    {
+      "name": "OWASP NoSQL Injection",
+      "url": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05.6-Testing_for_NoSQL_Injection"
+    },
+    {
+      "name": "PortSwigger NoSQL",
+      "url": "https://portswigger.net/web-security/nosql-injection"
+    },
+    {
+      "name": "CWE-943",
+      "url": "https://cwe.mitre.org/data/definitions/943.html"
+    },
+    {
+      "name": "MongoDB Reference",
+      "url": "https://www.mongodb.com/docs/manual/reference/operator/query/"
+    }
+  ]
+}

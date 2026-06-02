@@ -1,0 +1,18 @@
+{
+  "slug": "cache-poisoning",
+  "name": "Web Cache Poisoning & Deception",
+  "description": "Detection and exploitation of web cache poisoning and cache deception vulnerabilities",
+  "version": "1.0.0",
+  "requires_auth": false,
+  "signal_classes": [
+    "cache-unkeyed-input",
+    "cache-poisoned",
+    "cache-deception"
+  ],
+  "technique_map": {
+    "unkeyed-inputs": "Unkeyed Inputs — finding headers, cookies, and parameters not included in the cache key",
+    "cache-deception": "Cache Deception — tricking the cache into storing sensitive pages",
+    "poison-to-rfp": "Poison to Reflected XSS — unkeyed header reflected in response and cached",
+    "poison-to-stored": "Poison with Stored Payloads — poisoning via separate stored content endpoint"
+  }
+}

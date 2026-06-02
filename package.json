@@ -18,6 +18,15 @@
     "validate:fp-validation": "node skills/false-positive-validation/scripts/validate.js",
     "validate:wayback-recon": "node skills/wayback-recon/scripts/validate.js",
     "validate:subdomain-enum": "node skills/subdomain-enum/scripts/validate.js",
-    "validate:ssti": "node skills/ssti/scripts/validate.js"
+    "validate:ssti": "node skills/ssti/scripts/validate.js",
+    "validate:race-condition": "node skills/race-condition/scripts/validate.js",
+    "validate:smuggling": "node skills/smuggling/scripts/validate.js",
+    "validate:cache-poisoning": "node skills/cache-poisoning/scripts/validate.js",
+    "validate:deserialization": "node skills/deserialization/scripts/validate.js",
+    "validate:nosql-injection": "node skills/nosql-injection/scripts/validate.js",
+    "validate:prototype-pollution": "node skills/prototype-pollution/scripts/validate.js",
+    "validate:open-redirect": "node skills/open-redirect/scripts/validate.js",
+    "validate:cors": "node skills/cors/scripts/validate.js",
+    "validate:business-logic": "node skills/business-logic/scripts/validate.js"
   }
 }

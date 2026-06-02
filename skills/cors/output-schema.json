@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "vulnerability",
+    "severity",
+    "technique",
+    "evidence",
+    "aca_origin"
+  ],
+  "properties": {
+    "vulnerability": {
+      "type": "string",
+      "description": "CORS Misconfiguration"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "technique": {
+      "type": "string",
+      "enum": [
+        "origin-reflection",
+        "wildcard-credentials",
+        "preflight-bypass",
+        "impact"
+      ]
+    },
+    "endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "request_origin": {
+      "type": "string",
+      "description": "The Origin header value used in the test"
+    },
+    "aca_origin": {
+      "type": "string",
+      "description": "The Access-Control-Allow-Origin response header value"
+    },
+    "aca_credentials": {
+      "type": "boolean",
+      "description": "Whether Access-Control-Allow-Credentials: true was set"
+    },
+    "evidence": {
+      "type": "string",
+      "description": "Observed evidence of the misconfiguration"
+    },
+    "impact": {
+      "type": "string"
+    },
+    "remediation": {
+      "type": "string"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

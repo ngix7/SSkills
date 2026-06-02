@@ -1,0 +1,18 @@
+{
+  "slug": "deserialization",
+  "name": "Insecure Deserialization",
+  "description": "Detection and exploitation of insecure deserialization in PHP, Java, Python, and Ruby applications",
+  "version": "1.0.0",
+  "requires_auth": true,
+  "signal_classes": [
+    "vulnerability",
+    "misconfiguration"
+  ],
+  "technique_map": {
+    "detection": "Deserialisation Detection — identifying serialised data and error messages",
+    "php-deserialization": "PHP unserialize() — gadget-chain RCE via PHPGGC",
+    "java-deserialization": "Java deserialisation — ysoserial, CommonsCollections RCE",
+    "python-pickle": "Python pickle — __reduce__ RCE",
+    "ruby-marshal": "Ruby MARSHAL — deserialisation RCE"
+  }
+}

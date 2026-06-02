@@ -1,0 +1,17 @@
+{
+  "slug": "nosql-injection",
+  "name": "NoSQL Injection",
+  "description": "Detection and exploitation of NoSQL injection in MongoDB, CouchDB, and other document databases",
+  "version": "1.0.0",
+  "requires_auth": true,
+  "signal_classes": [
+    "vulnerability",
+    "misconfiguration"
+  ],
+  "technique_map": {
+    "detection": "NoSQL vs SQL Differentiation — detect NoSQL injection points",
+    "mongodb-query-operator": "MongoDB Query Operator Injection — $ne, $gt, $regex, $where",
+    "blind-nosql": "Blind NoSQL Injection — time-based and boolean-based inference",
+    "nosql-in-json": "NoSQL Injection via JSON Body — Content-Type: application/json"
+  }
+}

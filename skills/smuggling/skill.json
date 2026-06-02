@@ -1,0 +1,19 @@
+{
+  "slug": "smuggling",
+  "name": "HTTP Request Smuggling",
+  "description": "Detection and exploitation of HTTP request smuggling vulnerabilities — CL.TE, TE.CL, TE.TE, and parser differential attacks",
+  "version": "1.0.0",
+  "requires_auth": false,
+  "signal_classes": [
+    "smuggling-detected",
+    "smuggling-confirmed",
+    "smuggling-queue-poisoning"
+  ],
+  "technique_map": {
+    "detection": "Request Smuggling Detection — CL.TE and TE.CL differential probes",
+    "cl-te": "CL.TE — Content-Length vs Transfer-Encoding front-end/back-end discrepancy",
+    "te-cl": "TE.CL — Transfer-Encoding vs Content-Length discrepancy",
+    "te-te": "TE.TE — Obfuscated Transfer-Encoding header parsing differential",
+    "impact": "Impact Assessment — cache poisoning, request hijacking, WAF bypass"
+  }
+}

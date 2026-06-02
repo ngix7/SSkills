@@ -1,0 +1,16 @@
+{
+  "sources": [
+    {
+      "name": "OWASP",
+      "url": "https://owasp.org/www-community/attacks/Business_Logic_Vulnerability"
+    },
+    {
+      "name": "PortSwigger Research",
+      "url": "https://portswigger.net/web-security/logic-flaws"
+    },
+    {
+      "name": "CWE",
+      "url": "https://cwe.mitre.org/data/definitions/840.html"
+    }
+  ]
+}

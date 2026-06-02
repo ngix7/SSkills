@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "vulnerability",
+    "severity",
+    "technique",
+    "evidence",
+    "redirect_target"
+  ],
+  "properties": {
+    "vulnerability": {
+      "type": "string",
+      "description": "Open Redirect vulnerability"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "technique": {
+      "type": "string",
+      "enum": [
+        "detection",
+        "url-bypass",
+        "parameter-injection",
+        "chaining"
+      ]
+    },
+    "endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "parameter": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "string"
+    },
+    "redirect_target": {
+      "type": "string",
+      "format": "uri",
+      "description": "The external URL the victim would be redirected to"
+    },
+    "evidence": {
+      "type": "string",
+      "description": "Observed evidence of the redirect"
+    },
+    "impact": {
+      "type": "string"
+    },
+    "chained_to": {
+      "type": "string",
+      "description": "Higher-impact vulnerability this chains to (e.g. SSRF, OAuth token theft)"
+    },
+    "remediation": {
+      "type": "string"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

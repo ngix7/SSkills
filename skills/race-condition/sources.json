@@ -1,0 +1,24 @@
+{
+  "sources": [
+    {
+      "name": "OWASP",
+      "url": "https://owasp.org/www-community/vulnerabilities/Race_Condition"
+    },
+    {
+      "name": "PortSwigger Research",
+      "url": "https://portswigger.net/web-security/race-conditions"
+    },
+    {
+      "name": "PortSwigger Turbo Intruder",
+      "url": "https://portswigger.net/burp/documentation/desktop/tools/intruder/configure-attack/turbo-intruder"
+    },
+    {
+      "name": "CWE-362",
+      "url": "https://cwe.mitre.org/data/definitions/362.html"
+    },
+    {
+      "name": "CWE-367",
+      "url": "https://cwe.mitre.org/data/definitions/367.html"
+    }
+  ]
+}

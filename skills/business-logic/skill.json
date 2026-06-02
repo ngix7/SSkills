@@ -1,0 +1,19 @@
+{
+  "slug": "business-logic",
+  "name": "Business Logic Vulnerabilities",
+  "description": "Detection and exploitation of business logic flaws including workflow bypass, 2FA skip, price manipulation, and rate limit logic errors",
+  "version": "1.0.0",
+  "requires_auth": true,
+  "signal_classes": [
+    "logic-workflow-bypass",
+    "logic-auth-skip",
+    "logic-price-tamper",
+    "logic-rate-bypass"
+  ],
+  "technique_map": {
+    "workflow-bypass": "Workflow Bypass — skipping or reordering multi-step processes",
+    "2fa-skip": "2FA Skip — direct navigation, parameter manipulation, session reuse",
+    "price-manipulation": "Price Manipulation — negative values, integer overflow, currency confusion",
+    "rate-limit-logic": "Rate Limit Bypass — reset on success, race window, header manipulation"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "cors",
+  "name": "CORS Misconfiguration",
+  "description": "Detection and exploitation of CORS misconfigurations including origin reflection, wildcard credentials, preflight bypasses, and impact chaining",
+  "version": "1.0.0",
+  "requires_auth": false,
+  "signal_classes": [
+    "cors-reflected",
+    "cors-wildcard",
+    "cors-credentialed",
+    "cors-exploitable"
+  ],
+  "technique_map": {
+    "origin-reflection": "Origin Reflection — testing reflection, null origin, regex bypass",
+    "wildcard-credentials": "Wildcard Credentials — wildcard ACA-Origin with credentials=true",
+    "preflight-bypass": "Preflight Bypass — bypassing preflight with simple requests, custom headers",
+    "impact": "Impact — API abuse, CSRF-style attacks, data exfiltration"
+  }
+}

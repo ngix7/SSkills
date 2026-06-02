@@ -1,0 +1,17 @@
+{
+  "slug": "prototype-pollution",
+  "name": "Prototype Pollution",
+  "description": "Detection and exploitation of prototype pollution vulnerabilities in client-side and server-side JavaScript",
+  "version": "1.0.0",
+  "requires_auth": false,
+  "signal_classes": [
+    "vulnerability",
+    "misconfiguration"
+  ],
+  "technique_map": {
+    "detection": "Prototype Pollution Detection — identifying merge, assign, and clone patterns",
+    "client-side": "Client-Side Prototype Pollution — DOM XSS via polluted properties",
+    "server-side": "Server-Side Prototype Pollution — Node.js RCE via child_process",
+    "mitigation-bypass": "Mitigation Bypass — freezing, sealing, Object.create(null)"
+  }
+}

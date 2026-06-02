@@ -1,6 +1,51 @@
 {
   "skills": [
     {
+      "slug": "race-condition",
+      "name": "Race Conditions",
+      "description": "Concurrent request exploitation: TOCTOU, limit overrun, race windows in auth"
+    },
+    {
+      "slug": "smuggling",
+      "name": "HTTP Request Smuggling",
+      "description": "CL.TE, TE.CL, TE.TE smuggling for request hijacking and cache poisoning"
+    },
+    {
+      "slug": "cache-poisoning",
+      "name": "Web Cache Poisoning & Deception",
+      "description": "Unkeyed input poisoning, cache deception, stored+RFP chaining"
+    },
+    {
+      "slug": "deserialization",
+      "name": "Insecure Deserialization",
+      "description": "PHP, Java, Python pickle, Ruby MARSHAL deserialization RCE"
+    },
+    {
+      "slug": "nosql-injection",
+      "name": "NoSQL Injection",
+      "description": "MongoDB query operator injection, blind NoSQL, JSON body injection"
+    },
+    {
+      "slug": "prototype-pollution",
+      "name": "Prototype Pollution",
+      "description": "Client and server-side prototype pollution, gadget chains, RCE"
+    },
+    {
+      "slug": "open-redirect",
+      "name": "Open Redirect",
+      "description": "URL validation bypasses, parameter injection, chaining to SSRF/OAuth"
+    },
+    {
+      "slug": "cors",
+      "name": "CORS Misconfiguration",
+      "description": "Origin reflection, wildcard with credentials, preflight bypass"
+    },
+    {
+      "slug": "business-logic",
+      "name": "Business Logic Vulnerabilities",
+      "description": "Workflow bypass, price manipulation, 2FA skip, rate limit logic flaws"
+    },
+    {
       "slug": "ssti",
       "name": "Server-Side Template Injection",
       "description": "SSTI detection and exploitation across Jinja2, Twig, Freemarker, Velocity, Pug, Handlebars, ERB"

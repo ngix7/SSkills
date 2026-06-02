@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "vulnerability",
+    "severity",
+    "technique",
+    "unkeyed_input",
+    "evidence"
+  ],
+  "properties": {
+    "vulnerability": {
+      "type": "string",
+      "description": "Web Cache Poisoning or Cache Deception vulnerability"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "technique": {
+      "type": "string",
+      "enum": [
+        "unkeyed-inputs",
+        "cache-deception",
+        "poison-to-rfp",
+        "poison-to-stored"
+      ]
+    },
+    "unkeyed_input": {
+      "type": "string",
+      "description": "The header, cookie, or parameter that is not part of the cache key"
+    },
+    "endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "evidence": {
+      "type": "string",
+      "description": "Observed evidence of cache poisoning or deception"
+    },
+    "impact": {
+      "type": "string"
+    },
+    "remediation": {
+      "type": "string"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

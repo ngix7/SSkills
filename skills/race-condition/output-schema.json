@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "vulnerability",
+    "severity",
+    "technique",
+    "endpoint",
+    "evidence"
+  ],
+  "properties": {
+    "vulnerability": {
+      "type": "string",
+      "description": "Type of race condition vulnerability"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "technique": {
+      "type": "string",
+      "enum": [
+        "detection",
+        "turbo-intruder",
+        "limit-overrun",
+        "time-based-races",
+        "race-in-auth"
+      ]
+    },
+    "endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "parameter": {
+      "type": "string"
+    },
+    "concurrent_requests": {
+      "type": "integer",
+      "description": "Number of concurrent requests used to trigger the race"
+    },
+    "evidence": {
+      "type": "string",
+      "description": "Observed evidence of the race condition"
+    },
+    "impact": {
+      "type": "string"
+    },
+    "remediation": {
+      "type": "string"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

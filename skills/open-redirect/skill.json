@@ -1,0 +1,18 @@
+{
+  "slug": "open-redirect",
+  "name": "Open Redirect",
+  "description": "Detection and exploitation of open redirect vulnerabilities including URL validation bypasses, parameter injection, and chaining attacks",
+  "version": "1.0.0",
+  "requires_auth": false,
+  "signal_classes": [
+    "redirect-detected",
+    "redirect-confirmed",
+    "redirect-chainable"
+  ],
+  "technique_map": {
+    "detection": "Detection — parameter discovery and basic redirect tests",
+    "url-bypass": "URL Validation Bypass — protocol confusion, obfuscation",
+    "parameter-injection": "Parameter Injection — injecting redirect URLs across frameworks",
+    "chaining": "Chaining — open redirect to SSRF, OAuth theft, phishing"
+  }
+}

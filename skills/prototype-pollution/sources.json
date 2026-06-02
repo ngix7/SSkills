@@ -1,0 +1,20 @@
+{
+  "sources": [
+    {
+      "name": "OWASP Prototype Pollution",
+      "url": "https://owasp.org/www-community/attacks/Prototype_Pollution"
+    },
+    {
+      "name": "PortSwigger Research",
+      "url": "https://portswigger.net/web-security/prototype-pollution"
+    },
+    {
+      "name": "CWE-1321",
+      "url": "https://cwe.mitre.org/data/definitions/1321.html"
+    },
+    {
+      "name": "Snyk Research",
+      "url": "https://snyk.io/blog/after-three-years-of-silence-a-new-prototype-pollution-vulnerability-emerges/"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "race-condition",
+  "name": "Race Conditions",
+  "description": "Detection and exploitation of race condition vulnerabilities, including TOCTOU, concurrent request races, and rate-limit bypasses",
+  "version": "1.0.0",
+  "requires_auth": true,
+  "signal_classes": [
+    "race-detected",
+    "race-confirmed",
+    "race-limits-bypassed"
+  ],
+  "technique_map": {
+    "detection": "Race Condition Detection — concurrent request testing and timing analysis",
+    "turbo-intruder": "Turbo Intruder — single-packet attack setup for race windows",
+    "limit-overrun": "Limit Overrun — rate-limit bypass via race conditions (gift cards, coupons, voting)",
+    "time-based-races": "Time-Based Races — TOCTOU exploitation in file ops, state transitions",
+    "race-in-auth": "Race Conditions in Authentication — OAuth nonce reuse, session collision"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "sources": [
+    {
+      "name": "OWASP",
+      "url": "https://owasp.org/www-community/attacks/CORS_OriginHeaderScrutiny"
+    },
+    {
+      "name": "PortSwigger Research",
+      "url": "https://portswigger.net/web-security/cors"
+    },
+    {
+      "name": "CWE",
+      "url": "https://cwe.mitre.org/data/definitions/942.html"
+    },
+    {
+      "name": "MDN CORS",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS"
+    }
+  ]
+}
