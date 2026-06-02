@@ -1,0 +1,64 @@
+[
+  {
+    "type": "live-recon",
+    "timestamp": "2026-06-02T08:15:00Z",
+    "entries": [
+      {
+        "endpoint": "https://tax.audible.com/",
+        "method": "GET",
+        "code": 200,
+        "key_headers": {
+          "content-security-policy-report-only": "default-src https://*.amazon.com https://*.media-amazon.com; script-src 'unsafe-inline' 'unsafe-eval'; style-src 'unsafe-inline'",
+          "set-cookie": "session-id=; Domain=.audible.com; Secure",
+          "x-frame-options": "SAMEORIGIN",
+          "x-xss-protection": "1; mode=block",
+          "strict-transport-security": "max-age=47474747; includeSubDomains; preload",
+          "x-content-type-options": "nosniff"
+        }
+      },
+      {
+        "endpoint": "https://tax.audible.com/horizonte/login",
+        "method": "GET",
+        "code": 302,
+        "redirect": "https://www.amazon.com/ap/signin?openid.assoc_handle=audible_tax_us_v2&marketPlaceId=AF2M0KC94RCEA&pageId=tax_publisher_portal"
+      },
+      {
+        "endpoint": "https://tax.audible.com/accountManager",
+        "method": "GET",
+        "code": 302,
+        "redirect": "https://www.amazon.com/ap/signin?openid.assoc_handle=audible_tax_us_v2&marketPlaceId=AF2M0KC94RCEA&pageId=tax_publisher_portal"
+      },
+      {
+        "endpoint": "https://tax.audible.com/faq",
+        "method": "GET",
+        "code": 200,
+        "content": "Empty/no content rendered"
+      },
+      {
+        "endpoint": "https://tax.audible.com/robots.txt",
+        "method": "GET",
+        "code": 200,
+        "content": "Empty (no robots directives)"
+      },
+      {
+        "endpoint": "https://tax.audible.com/sitemap.xml",
+        "method": "GET",
+        "code": 404
+      },
+      {
+        "endpoint": "https://tax.audible.com/.well-known/security.txt",
+        "method": "GET",
+        "code": 404
+      }
+    ]
+  },
+  {
+    "type": "dns",
+    "data": {
+      "cname": "tp.791be3b49-frontier.audible.com",
+      "cloudfront_distribution": "d3rsjikjuws1dl.cloudfront.net",
+      "ips": ["108.156.107.54", "108.156.107.62", "108.156.107.86", "108.156.107.126"],
+      "cdn": "Amazon CloudFront"
+    }
+  }
+]
