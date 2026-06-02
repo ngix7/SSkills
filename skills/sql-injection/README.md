@@ -15,7 +15,6 @@ Detection and exploitation of SQL injection vulnerabilities across major DBMS
 
 ## Safety
 
-See [safety.md](safety.md) before testing.
 
 ## Output
 

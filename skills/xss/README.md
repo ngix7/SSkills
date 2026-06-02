@@ -16,7 +16,6 @@ Detection and exploitation of reflected, stored, and DOM-based XSS vulnerabiliti
 
 ## Safety
 
-See [safety.md](safety.md) before testing.
 
 ## Output
 

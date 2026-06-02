@@ -15,7 +15,6 @@ Detection and exploitation of authentication bypass vulnerabilities
 
 ## Safety
 
-See [safety.md](safety.md) before testing.
 
 ## Output
 

@@ -13,7 +13,6 @@ Detection and exploitation of OS command injection vulnerabilities
 
 ## Safety
 
-See [safety.md](safety.md) before testing.
 
 ## Output
 

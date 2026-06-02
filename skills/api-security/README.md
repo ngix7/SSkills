@@ -15,7 +15,6 @@ Comprehensive API security testing for REST, GraphQL, and tRPC
 
 ## Safety
 
-See [safety.md](safety.md) before testing.
 
 ## Output
 

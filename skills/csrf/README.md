@@ -14,7 +14,6 @@ Detection and exploitation of CSRF vulnerabilities
 
 ## Safety
 
-See [safety.md](safety.md) before testing.
 
 ## Output
 

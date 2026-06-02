@@ -3,7 +3,7 @@ const path = require('path');
 const BASE = path.join(__dirname, '..');
 let errors = [];
 
-const required = ['skill.json', 'README.md', 'router.md', 'safety.md', 'output-schema.json', 'sources.json'];
+const required = ['skill.json', 'README.md', 'router.md', 'output-schema.json', 'sources.json'];
 for (const f of required) {
   if (!fs.existsSync(path.join(BASE, f))) errors.push('Missing: ' + f);
 }

@@ -14,7 +14,6 @@ Detection and exploitation of LFI, RFI, and path traversal vulnerabilities
 
 ## Safety
 
-See [safety.md](safety.md) before testing.
 
 ## Output
 

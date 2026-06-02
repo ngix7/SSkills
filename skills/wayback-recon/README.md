@@ -52,4 +52,3 @@ Domain → Wayback URLs → Filter → Unique params → Alive check → Manual 
 | GAU | No | ✅ Fully passive |
 | httpx (alive check) | **Yes** | ⚠️ Sends HTTP requests |
 
-See [safety.md](safety.md).

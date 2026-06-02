@@ -47,4 +47,3 @@ python tplmap.py -u "http://target.com/page?name=*" --engine jinja2
 - ⛔ `os.system('/bin/bash -c "..."')` — extremely destructive
 - ⛔ `cat /etc/shadow` — exfiltrating real secrets
 
-See [safety.md](safety.md).
