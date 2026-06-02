@@ -88,7 +88,24 @@ node scripts/firefight.js --mode report \
   --analyst '{...}'
 ```
 
-This produces a finding report with: verdict, severity, classification, CWEs, evidence (confirmed + missing), attack chains, consensus score, and debate quality metric.
+This produces a finding report with: verdict, severity, classification, CWEs, evidence (confirmed + missing), attack chains, consensus score, debate quality metric, and **auto-execution result** from the engineer's `firefight_cmd`.
+
+### Auto-Execution (`--autoExec`)
+
+When `--autoExec` is passed to `--mode report`, firefight.js automatically executes the `firefight_cmd` returned by `@firefight-engineer` and includes the result in the report under `execution`. This closes the loop between "suggest payload" and "confirm it works" — no extra bash step needed.
+
+```bash
+# Example: report with auto-execution
+node scripts/firefight.js --mode report --autoExec \
+  --judge '{"vote":"YES",...}' \
+  --engineer '{"firefight_cmd":"curl -s -X OPTIONS https://target.com/api/Users -H \"Origin: https://evil.com\" -w \"%{http_code}\" -o /dev/null"}' \
+  --optimist '{...}' \
+  --skeptic '{...}' \
+  --strategist '{...}' \
+  --analyst '{...}'
+```
+
+If the command succeeds, `execution.status` is `"done"` with the output. If it fails, `"error"` with the error message. The engineer can suggest any command — the report runner validates it independently.
 
 ### firefight.js — Execution Engine
 

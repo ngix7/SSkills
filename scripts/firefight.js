@@ -255,7 +255,7 @@ function cleanJSON(raw) {
 
 // ─── Report Generator ─────────────────────────────────────────────
 
-function generateReport(agents) {
+function generateReport(agents, autoExec = false) {
   const parsed = {};
   for (const [name, text] of Object.entries(agents)) {
     try {
@@ -269,6 +269,19 @@ function generateReport(agents) {
   const judge = parsed.judge || {};
   const analyst = parsed.analyst || {};
   const strategist = parsed.strategist || {};
+  const engineer = parsed.engineer || {};
+
+  // Auto-execute engineer's firefight_cmd if present and autoExec is true
+  let execution = null;
+  if (autoExec && engineer.firefight_cmd && !engineer.error) {
+    try {
+      const cmd = engineer.firefight_cmd;
+      const output = execSync(cmd, { timeout: 20000, encoding: 'utf8', maxBuffer: 1024 * 500 });
+      execution = { command: cmd, status: 'done', output: output.substring(0, 5000) };
+    } catch (e) {
+      execution = { command: engineer.firefight_cmd, status: 'error', error: e.message.substring(0, 300) };
+    }
+  }
 
   // Consensus scoring
   const yesVotes = Object.values(parsed).filter(v =>
@@ -303,6 +316,7 @@ function generateReport(agents) {
     chains: strategist.chains || [],
     primary_chain: strategist.primary_chain || null,
     recommendation: strategist.recommendation || 'No recommendation',
+    execution,
     raw_agents: parsed,
   };
 
@@ -381,7 +395,7 @@ function main() {
         chain: 'Propose attack chains from a confirmed finding. Usage: --mode chain --finding \'{"class":"cors","technique":"wildcard-credentials","severity":"high"}\'',
         probe: 'Probe target for CORS config and public endpoints. Usage: --mode probe --target <url>',
         compress: 'Compress debate history for compact prompts. Usage: --mode compress --rounds \'{"agent":"opt","text":"..."}\' --rounds \'{"agent":"skep","text":"..."}\'',
-        report: 'Generate structured finding report from agent responses. Usage: --mode report --judge \'{"vote":"YES",...}\' --optimist \'{...}\' --skeptic \'{...}\' --engineer \'{...}\' --strategist \'{...}\' --analyst \'{...}\'',
+        report: 'Generate structured finding report from agent responses. Usage: --mode report --judge \'{"vote":"YES",...}\' --optimist \'{...}\' --skeptic \'{...}\' --engineer \'{...}\' --strategist \'{...}\' --analyst \'{...}\' [--autoExec to run engineer.firefight_cmd]',
       },
       exec_options: {
         '--target': 'Target URL or domain (required)', '--method': 'HTTP method (default: GET)',
@@ -400,6 +414,9 @@ function main() {
       },
       compress_options: {
         '--rounds': 'Repeatable: --rounds \'{"agent":"name","text":"..."}\'',
+      },
+      report_options: {
+        '--autoExec': 'Auto-execute engineer.firefight_cmd during report generation',
       },
       notes: 'Firefight debates are run by the opencode agent using @mentions to subagents in .opencode/agents/',
     }, null, 2));
@@ -462,7 +479,7 @@ function main() {
       analyst: args.analyst || '',
       judge: args.judge,
     };
-    console.log(JSON.stringify(generateReport(agents), null, 2));
+    console.log(JSON.stringify(generateReport(agents, args.autoExec), null, 2));
     return;
   }
 
