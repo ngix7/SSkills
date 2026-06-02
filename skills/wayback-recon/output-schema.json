@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["source", "url", "finding_type"],
+  "properties": {
+    "source": { "type": "string", "enum": ["wayback", "commoncrawl", "otx", "urlscan", "gau"] },
+    "url": { "type": "string", "format": "uri" },
+    "finding_type": {
+      "type": "string",
+      "enum": ["endpoint", "parameter", "js-file", "subdomain", "hidden-path", "exposed-data"]
+    },
+    "timestamp": { "type": "string", "description": "When the URL was archived" },
+    "status_code": { "type": "integer" },
+    "parameters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "value": { "type": "string" }
+        }
+      }
+    },
+    "alive": { "type": "boolean", "description": "Is the endpoint currently responding" },
+    "notes": { "type": "string" }
+  }
+}

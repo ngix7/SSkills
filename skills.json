@@ -1,6 +1,11 @@
 {
   "skills": [
     {
+      "slug": "wayback-recon",
+      "name": "Wayback & Historical URL Recon",
+      "description": "Passive recon using Wayback Machine, CommonCrawl, AlienVault OTX, URLScan, and GAU"
+    },
+    {
       "slug": "false-positive-validation",
       "name": "False Positive Validation & Triage",
       "description": "Methodology to distinguish real vulnerabilities from false positives across all websec classes"

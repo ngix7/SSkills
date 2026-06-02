@@ -1,0 +1,10 @@
+{
+  "sources": [
+    { "name": "Internet Archive Wayback Machine", "url": "https://web.archive.org/" },
+    { "name": "CommonCrawl", "url": "https://commoncrawl.org/" },
+    { "name": "AlienVault OTX", "url": "https://otx.alienvault.com/" },
+    { "name": "URLScan.io", "url": "https://urlscan.io/" },
+    { "name": "TomNomNom waybackurls", "url": "https://github.com/tomnomnom/waybackurls" },
+    { "name": "LC GAU", "url": "https://github.com/lc/gau" }
+  ]
+}

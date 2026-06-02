@@ -1,0 +1,20 @@
+{
+  "slug": "wayback-recon",
+  "name": "Wayback & Historical URL Recon",
+  "description": "Passive recon using Wayback Machine, CommonCrawl, AlienVault OTX, URLScan, and other archives to discover endpoints, parameters, and hidden attack surfaces",
+  "version": "1.0.0",
+  "safety_posture": "passive_only",
+  "requires_auth": false,
+  "signal_classes": ["endpoint-discovered", "parameter-found", "historical-vulnerability", "js-file", "hidden-path"],
+  "technique_map": {
+    "wayback-machine": "Wayback Machine (archive.org) — CDX API",
+    "commoncrawl": "CommonCrawl — Index search",
+    "alienvault-otx": "AlienVault OTX — Passive DNS & URL",
+    "urlscan": "URLScan.io — Screenshot & request data",
+    "gau": "GAU — All sources aggregated",
+    "parameter-analysis": "Parameter Discovery & Analysis",
+    "js-analysis": "JavaScript Endpoint Extraction",
+    "diff-analysis": "Historical Diff Analysis",
+    "subdomain-enum": "Subdomain Enumeration via Archives"
+  }
+}

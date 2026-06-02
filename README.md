@@ -16,7 +16,8 @@ Security Skills — structured specialist knowledge for web application security
 | 8 | [CMD Injection](skills/command-injection/README.md) | OS Command Injection |
 | 9 | [LFI/RFI](skills/lfi-rfi/README.md) | File Inclusion & Path Traversal |
 | 10 | [API Security](skills/api-security/README.md) | REST, GraphQL, tRPC |
-| 11 | [FP Validation](skills/false-positive-validation/README.md) | False positive detection & triage |
+| 11 | [Wayback Recon](skills/wayback-recon/README.md) | Historical URL recon & passive discovery |
+| 12 | [FP Validation](skills/false-positive-validation/README.md) | False positive detection & triage |
 
 ## Structure
 
