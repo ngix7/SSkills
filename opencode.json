@@ -30,6 +30,12 @@
       "mode": "subagent",
       "temperature": 0.3,
       "prompt": "{file:.opencode/agents/firefight-analyst.md}"
+    },
+    "firefight-judge": {
+      "description": "Judge for firefight debate — votes, classifies, recommends technique",
+      "mode": "subagent",
+      "temperature": 0.2,
+      "prompt": "{file:.opencode/agents/firefight-judge.md}"
     }
   }
 }

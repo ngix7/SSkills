@@ -52,7 +52,7 @@ Orchestrated vulnerability debate + exploitation using opencode subagents.
 
 ### Agents
 
-5 debate subagents are registered in `.opencode/agents/` and `opencode.json`:
+6 subagents are registered in `.opencode/agents/` and `opencode.json`:
 
 | @mention | Role | Stance |
 |----------|------|--------|
@@ -61,6 +61,7 @@ Orchestrated vulnerability debate + exploitation using opencode subagents.
 | `@firefight-engineer` | Exploit engineer | Thinks about practical payload, bypasses, encoding |
 | `@firefight-strategist` | Security strategist | Thinks about attack chaining, 2-3 steps ahead |
 | `@firefight-analyst` | Vulnerability analyst | Classifies the vuln, references skills and CWEs |
+| `@firefight-judge` | **Judge** | Votes, sets severity, classifies, recommends technique |
 
 ### Workflow
 
@@ -72,8 +73,10 @@ Round 2: @firefight-skeptic   "History: [optimist's response]. Your turn."
 Round 3: @firefight-engineer  "History: [previous responses]. Your turn."
 Round 4: @firefight-strategist "History: [previous responses]. Your turn."
 Round 5: @firefight-analyst   "History: [previous responses]. Your turn."
-Round 6: Vote                 "All responses above. Vote YES or NO."
+Round 6: @firefight-judge    "All 5 responses above. Your verdict."
 ```
+
+Round 6 (judge) returns JSON: `{"vote":"YES/NO","severity":"low/med/high/crit","class":"xss","technique":"reflected","confidence":"high","reasoning":"..."}`
 
 If approved (>=3 YES), I load the matching skill and use `firefight.js` for execution.
 
