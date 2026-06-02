@@ -3,7 +3,6 @@
   "name": "False Positive Validation & Triage",
   "description": "Methodology to distinguish real vulnerabilities from false positives across all websec classes",
   "version": "1.0.0",
-  "safety_posture": "analysis_only",
   "requires_auth": false,
   "signal_classes": ["confirmed", "false-positive", "inconclusive", "informational"],
   "technique_map": {

@@ -3,7 +3,6 @@
   "name": "Wayback & Historical URL Recon",
   "description": "Passive recon using Wayback Machine, CommonCrawl, AlienVault OTX, URLScan, and other archives to discover endpoints, parameters, and hidden attack surfaces",
   "version": "1.0.0",
-  "safety_posture": "passive_only",
   "requires_auth": false,
   "signal_classes": ["endpoint-discovered", "parameter-found", "historical-vulnerability", "js-file", "hidden-path"],
   "technique_map": {

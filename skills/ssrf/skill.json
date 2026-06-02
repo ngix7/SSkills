@@ -3,7 +3,6 @@
   "name": "Server-Side Request Forgery",
   "description": "Detection and exploitation of SSRF vulnerabilities",
   "version": "1.0.0",
-  "safety_posture": "analysis_only",
   "requires_auth": true,
   "signal_classes": [
     "vulnerability",

@@ -3,7 +3,6 @@
   "name": "Subdomain Enumeration",
   "description": "Passive and active subdomain discovery: DNS brute-force, certificate transparency, passive DNS, zone transfer, TLS scanning, and search engines",
   "version": "1.0.0",
-  "safety_posture": "passive_and_active",
   "requires_auth": false,
   "signal_classes": ["subdomain-discovered", "resolve", "no-resolve", "wildcard-detected"],
   "technique_map": {

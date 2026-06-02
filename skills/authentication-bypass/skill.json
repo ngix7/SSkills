@@ -3,7 +3,6 @@
   "name": "Authentication Bypass",
   "description": "Detection and exploitation of authentication bypass vulnerabilities",
   "version": "1.0.0",
-  "safety_posture": "analysis_only",
   "requires_auth": true,
   "signal_classes": [
     "vulnerability",
