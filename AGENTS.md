@@ -10,10 +10,10 @@ Each skill lives under `skills/<slug>/` and contains:
 |------|---------|
 | `skill.json` | Machine metadata (slug, name, description, version, technique_map) |
 | `README.md` | Human entrypoint: links to every technique card |
-| `router.md` | Triage rules: detection → engine identification → rejection rules → technique selection |
+| `router.md` | Triage rules: detection -> engine identification -> rejection rules -> technique selection |
 | `output-schema.json` | JSON Schema for structured findings |
 | `sources.json` | References (OWASP, PortSwigger, CWE) |
-| `techniques/*.md` | Technique cards — one per engine/vector |
+| `techniques/*.md` | Technique cards -- one per engine/vector |
 | `scripts/validate.js` | Validates structure + required fields |
 
 ## Conventions
@@ -46,52 +46,52 @@ npm run validate:ssti         # Validate single skill
 
 Skills are validated against real vulnerable targets (e.g., Juice Shop) before being saved. Commands in technique cards should be tested and work. Technique cards are executable pipelines (curl, dig, subfinder, httpx), not theory.
 
-## Firefight Tool
+## Firefight
 
-Registered in `opencode.json` as a custom tool. Orchestrates debate + exploitation.
+Orchestrated vulnerability debate + exploitation using opencode subagents.
 
-### Flow
+### Agents
 
-1. **Phase 1 — Debate (6 rounds):** Optimist -> Skeptic -> Engineer -> Strategist -> Analyst -> Voting. Each round calls LLM with the agent's personality + full debate transcript.
-2. **Voting:** LLM votes 4 times. >=3 YES -> approved.
-3. **Phase 2 — Specialization:** Script identifies the class (XSS, SQLi, SSTI...) and loads the corresponding skill from disk.
-4. **Phase 3 — Exploitation:** Specialist suggests payloads -> script executes via curl -> LLM interprets result. Up to 3 attempts.
-5. **Phase 4 — Chains (if confirmed):** Optimist -> Strategist -> Voting on attack chain.
+5 debate subagents are registered in `.opencode/agents/` and `opencode.json`:
 
-### Debater Personalities
+| @mention | Role | Stance |
+|----------|------|--------|
+| `@firefight-optimist` | Optimistic debater | Sees gold in everything, argues for exploitation |
+| `@firefight-skeptic` | Skeptical debater | Doubts everything, demands concrete proof |
+| `@firefight-engineer` | Exploit engineer | Thinks about practical payload, bypasses, encoding |
+| `@firefight-strategist` | Security strategist | Thinks about attack chaining, 2-3 steps ahead |
+| `@firefight-analyst` | Vulnerability analyst | Classifies the vuln, references skills and CWEs |
 
-| Agent | Stance |
-|-------|--------|
-| **Optimist** | Sees gold in everything, argues for exploitation |
-| **Skeptic** | Doubts everything, demands concrete proof |
-| **Engineer** | Thinks about practical payload, bypasses, encoding |
-| **Strategist** | Thinks about chains and attack routes |
-| **Analyst** | Classifies the vuln, references skills and CWEs |
+### Workflow
 
-### Usage
+The debate is run by the opencode agent (me). Each turn I @mention the next subagent with the finding, target, and full debate history.
 
-```bash
-# Direct
-node scripts/firefight.js --target "http://testphp.vulnweb.com/search.php?test=query" --finding "parameter test reflects user input without sanitization"
-
-# Via opencode tool (requires opencode.json at root)
-# Open opencode in the repo and use the registered tool
+```
+Round 1: @firefight-optimist "Finding: param X reflects user input. Target: example.com"
+Round 2: @firefight-skeptic   "History: [optimist's response]. Your turn."
+Round 3: @firefight-engineer  "History: [previous responses]. Your turn."
+Round 4: @firefight-strategist "History: [previous responses]. Your turn."
+Round 5: @firefight-analyst   "History: [previous responses]. Your turn."
+Round 6: Vote                 "All responses above. Vote YES or NO."
 ```
 
-### Output
+If approved (>=3 YES), I load the matching skill and use `firefight.js` for execution.
 
-```json
-{
-  "status": "confirmed",
-  "class": "xss",
-  "technique": "reflected",
-  "payload": "<img src=x onerror=alert(1)>",
-  "evidence": "alert(1) executed",
-  "chain": []
-}
+### firefight.js — Execution Engine
+
+`scripts/firefight.js` handles the non-LLM parts: skill loading, payload execution, and output.
+
+```bash
+# List all skills
+node scripts/firefight.js --mode list
+
+# Load skill techniques
+node scripts/firefight.js --mode skill --class xss
+
+# Execute payload
+node scripts/firefight.js --mode exec --target "https://target.com/page?param=1" --payload "<script>alert(1)</script>" --method GET --param q
 ```
 
 ### Config
 
-- Reads provider/model from global or repo `opencode.json`
-- Uses `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` from environment
+Agents are defined in `opencode.json` at repo root. No API keys needed -- opencode handles authentication for subagents.
