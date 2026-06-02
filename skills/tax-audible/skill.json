@@ -1,0 +1,25 @@
+{
+  "schema_version": "public-specialist-skills/v1",
+  "id": "tax_audible_audit",
+  "slug": "tax-audible",
+  "title": "tax.audible.com Security Assessment",
+  "version": "1.0.0",
+  "description": "Security assessment of Amazon/Audible tax portal at tax.audible.com. Targets CSP, cookie security, OAuth configuration, CloudFront edge protection, and information disclosure.",
+  "focus": [
+    "content-security-policy",
+    "cookie-security",
+    "oauth-openid-configuration",
+    "cloudfront-edge-protection",
+    "information-disclosure",
+    "frame-options"
+  ],
+  "safety_posture": "Read-only recon and analysis. No automated exploitation, no authentication bypass attempts, no session manipulation.",
+  "severity": "medium",
+  "tags": ["audible", "amazon", "tax-portal", "cloudfront", "oauth"],
+  "target": {
+    "url": "https://tax.audible.com/",
+    "platform": "Amazon CloudFront",
+    "auth": "Amazon OpenID Connect (OAuth 2.0)",
+    "marketplace_id": "AF2M0KC94RCEA"
+  }
+}
