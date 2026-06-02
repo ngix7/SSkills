@@ -45,3 +45,53 @@ npm run validate:ssti         # Validate single skill
 ## Target Validation
 
 Skills are validated against real vulnerable targets (e.g., Juice Shop) before being saved. Commands in technique cards should be tested and work. Technique cards are executable pipelines (curl, dig, subfinder, httpx), not theory.
+
+## Firefight Tool
+
+Registrado em `opencode.json` como custom tool. Orquestra debate + exploração.
+
+### Fluxo
+
+1. **Fase 1 — Debate (6 turnos):** Otimista → Cética → Engenheiro → Estrategista → Analista → Votação. Cada turno chama o LLM com a personalidade do agente + transcript completo do debate.
+2. **Votação:** LLM vota 4x. ≥3 SIM → aprovado.
+3. **Fase 2 — Especialização:** Script identifica a classe (XSS, SQLi, SSTI...) e carrega a skill correspondente do disco.
+4. **Fase 3 — Exploração:** Especialista sugere payloads → script executa via curl → LLM interpreta resultado. Até 3 tentativas.
+5. **Fase 4 — Chains (se confirmou):** Otimista → Estrategista → Votação sobre chain de ataque.
+
+### Personalidades dos debatedores
+
+| Agente | Postura |
+|--------|---------|
+| **Otimista** | Enxerga gold em tudo, argumenta pela exploração |
+| **Cética** | Duvida de tudo, pede prova concreta |
+| **Engenheiro** | Pensa no payload prático, bypasses, encoding |
+| **Estrategista** | Pensa em chains e rotas de ataque |
+| **Analista** | Classifica a vuln, referencia skills e CWEs |
+
+### Uso
+
+```bash
+# Direto
+node scripts/firefight.js --target "http://testphp.vulnweb.com/search.php?test=query" --finding "parametro test reflete input sem sanitizacao"
+
+# Via opencode tool (precisa do opencode.json na raiz)
+# Abre o opencode no repo e usa a tool registrada
+```
+
+### Output
+
+```json
+{
+  "status": "confirmed",
+  "class": "xss",
+  "technique": "reflected",
+  "payload": "<img src=x onerror=alert(1)>",
+  "evidence": "alert(1) executou",
+  "chain": []
+}
+```
+
+### Config
+
+- Lê provider/model do `opencode.json` global ou deste repo
+- Usa `ANTHROPIC_API_KEY` ou `OPENAI_API_KEY` do ambiente

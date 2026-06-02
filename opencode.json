@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "tools": {
+    "firefight": {
+      "description": "Debate + exploracao de vulnerabilidade (6 turnos, 5 agentes). Aceita --target <url> --finding <descricao>",
+      "command": "node",
+      "args": ["scripts/firefight.js", "--target", "$TARGET", "--finding", "$FINDING"]
+    }
+  }
+}
