@@ -17,7 +17,8 @@ Security Skills — structured specialist knowledge for web application security
 | 9 | [LFI/RFI](skills/lfi-rfi/README.md) | File Inclusion & Path Traversal |
 | 10 | [API Security](skills/api-security/README.md) | REST, GraphQL, tRPC |
 | 11 | [Wayback Recon](skills/wayback-recon/README.md) | Historical URL recon & passive discovery |
-| 12 | [FP Validation](skills/false-positive-validation/README.md) | False positive detection & triage |
+| 12 | [Subdomain Enum](skills/subdomain-enum/README.md) | DNS brute-force, CT logs, passive DNS, zone transfer |
+| 13 | [FP Validation](skills/false-positive-validation/README.md) | False positive detection & triage |
 
 ## Structure
 

@@ -16,6 +16,7 @@
     "validate:lfi-rfi": "node skills/lfi-rfi/scripts/validate.js",
     "validate:api-security": "node skills/api-security/scripts/validate.js",
     "validate:fp-validation": "node skills/false-positive-validation/scripts/validate.js",
-    "validate:wayback-recon": "node skills/wayback-recon/scripts/validate.js"
+    "validate:wayback-recon": "node skills/wayback-recon/scripts/validate.js",
+    "validate:subdomain-enum": "node skills/subdomain-enum/scripts/validate.js"
   }
 }

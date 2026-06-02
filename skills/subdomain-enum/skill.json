@@ -1,0 +1,19 @@
+{
+  "slug": "subdomain-enum",
+  "name": "Subdomain Enumeration",
+  "description": "Passive and active subdomain discovery: DNS brute-force, certificate transparency, passive DNS, zone transfer, TLS scanning, and search engines",
+  "version": "1.0.0",
+  "safety_posture": "passive_and_active",
+  "requires_auth": false,
+  "signal_classes": ["subdomain-discovered", "resolve", "no-resolve", "wildcard-detected"],
+  "technique_map": {
+    "dns-brute-force": "DNS Brute Force — common wordlists",
+    "certificate-transparency": "Certificate Transparency — crt.sh, CertSpotter, Google CT",
+    "passive-dns": "Passive DNS — AlienVault, RiskIQ, SecurityTrails",
+    "zone-transfer": "DNS Zone Transfer — AXFR attempt",
+    "reverse-dns": "Reverse DNS — PTR records on IP ranges",
+    "tls-scanning": "TLS Certificate Scanning — cert streams",
+    "search-engines": "Search Engine Dorking — Google, Bing, Shodan",
+    "dns-resolution": "DNS Resolution & Validation — resolving, wildcard filtering"
+  }
+}

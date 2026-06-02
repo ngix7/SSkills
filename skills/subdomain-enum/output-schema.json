@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["subdomain", "source", "resolves"],
+  "properties": {
+    "subdomain": { "type": "string", "example": "admin.target.com" },
+    "source": {
+      "type": "string",
+      "enum": ["dns-brute", "ct-log", "passive-dns", "zone-transfer", "reverse-dns", "tls-scan", "search-engine", "tool-subfinder", "tool-amass"]
+    },
+    "resolves": { "type": "boolean" },
+    "ip_addresses": {
+      "type": "array",
+      "items": { "type": "string", "format": "ipv4" }
+    },
+    "cdn": { "type": "boolean", "description": "Behind CDN (Cloudflare, Akamai, etc.)" },
+    "http_status": { "type": "integer" },
+    "technology": { "type": "string", "description": "Detected tech stack" },
+    "timestamp": { "type": "string" }
+  }
+}

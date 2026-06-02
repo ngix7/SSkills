@@ -1,0 +1,10 @@
+{
+  "sources": [
+    { "name": "crt.sh (Certificate Transparency)", "url": "https://crt.sh/" },
+    { "name": "ProjectDiscovery Subfinder", "url": "https://github.com/projectdiscovery/subfinder" },
+    { "name": "OWASP Amass", "url": "https://github.com/owasp-amass/amass" },
+    { "name": "SecurityTrails", "url": "https://securitytrails.com/" },
+    { "name": "Shodan", "url": "https://shodan.io" },
+    { "name": "Censys", "url": "https://censys.io" }
+  ]
+}

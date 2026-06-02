@@ -1,6 +1,11 @@
 {
   "skills": [
     {
+      "slug": "subdomain-enum",
+      "name": "Subdomain Enumeration",
+      "description": "Passive and active subdomain discovery: DNS brute-force, CT logs, passive DNS, zone transfer, TLS scanning, search engines"
+    },
+    {
       "slug": "wayback-recon",
       "name": "Wayback & Historical URL Recon",
       "description": "Passive recon using Wayback Machine, CommonCrawl, AlienVault OTX, URLScan, and GAU"
