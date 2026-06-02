@@ -30,9 +30,9 @@ curl -X POST "https://target.com/ping" -d 'host=example.com; echo hello'
 ; echo HELLO → Response: "HELLO"
 ```
 Could be:
-- Command execution: `echo HELLO` ran on server ✅
-- Argument echo: the app echoed back your input as a string ❌
-- Error message: "Command not found: ; echo HELLO" ❌
+- Command execution: `echo HELLO` ran on server 
+- Argument echo: the app echoed back your input as a string 
+- Error message: "Command not found: ; echo HELLO" 
 
 **Confirm:**
 ```bash
@@ -51,12 +51,12 @@ DNS query received but no command output. Server might do DNS resolution for log
 
 | Signal | Confident? |
 |--------|------------|
-| Consistent 5s+ delay vs baseline | ✅ Strong |
-| Command output changes with input | ✅ Confirmed |
-| OOB with data exfiltration | ✅ Confirmed |
-| Error messages revealing commands | ✅ Strong |
-| Single occurrence of delay | ❌ Inconclusive |
-| Output is identical to input (echo) | ❌ False Positive |
+| Consistent 5s+ delay vs baseline |  Strong |
+| Command output changes with input |  Confirmed |
+| OOB with data exfiltration |  Confirmed |
+| Error messages revealing commands |  Strong |
+| Single occurrence of delay |  Inconclusive |
+| Output is identical to input (echo) |  False Positive |
 
 ## Validation Flow
 

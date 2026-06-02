@@ -70,8 +70,8 @@ Is the "time-based" delay just network latency?
 ## Rejection Criteria
 
 Reject a finding if ANY of these apply:
-- ❌ Cannot reproduce consistently
-- ❌ Benign input produces same behavior
-- ❌ Behavior is documented as expected
-- ❌ Only affects request, not response (self-XSS without impact)
-- ❌ Requires impossible preconditions
+-  Cannot reproduce consistently
+-  Benign input produces same behavior
+-  Behavior is documented as expected
+-  Only affects request, not response (self-XSS without impact)
+-  Requires impossible preconditions

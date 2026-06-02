@@ -42,12 +42,12 @@ If sensitive fields are properly gated, the IDOR might only affect non-sensitive
 
 | Signal | Confident? |
 |--------|------------|
-| Sequential IDs, can enumerate all resources | ✅ Strong |
-| Access another user's private data (orders, messages, CCs) | ✅ Confirmed |
-| Different users see different field values | ✅ Confirmed |
-| Admin-only data accessible as regular user | ✅ Confirmed |
-| Non-sequential UUID, cannot brute force | ❌ Low |
-| Public-facing profile data | ❌ Not IDOR |
+| Sequential IDs, can enumerate all resources |  Strong |
+| Access another user's private data (orders, messages, CCs) |  Confirmed |
+| Different users see different field values |  Confirmed |
+| Admin-only data accessible as regular user |  Confirmed |
+| Non-sequential UUID, cannot brute force |  Low |
+| Public-facing profile data |  Not IDOR |
 
 ## Validation Flow
 

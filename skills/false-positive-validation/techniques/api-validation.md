@@ -25,9 +25,9 @@ Only report if this leads to a real impact (brute force, enumeration).
 ## Confirmation Criteria
 | Signal | Confident? |
 |--------|------------|
-| Write to read-only field succeeds | ✅ Confirmed |
-| Mass assignment elevates privileges | ✅ Confirmed |
-| Auth bypass via method override | ✅ Confirmed |
-| Rate limit bypass → account takeover | ✅ Confirmed |
-| Extra fields in response only | ❌ Informational |
-| 401 for unauthorized endpoint | ❌ Expected behavior |
+| Write to read-only field succeeds |  Confirmed |
+| Mass assignment elevates privileges |  Confirmed |
+| Auth bypass via method override |  Confirmed |
+| Rate limit bypass → account takeover |  Confirmed |
+| Extra fields in response only |  Informational |
+| 401 for unauthorized endpoint |  Expected behavior |

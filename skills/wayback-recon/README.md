@@ -45,10 +45,10 @@ Domain → Wayback URLs → Filter → Unique params → Alive check → Manual 
 
 | Technique | Active? | Safe? |
 |-----------|---------|-------|
-| Wayback CDX | No | ✅ Fully passive |
-| CommonCrawl | No | ✅ Fully passive |
-| AlienVault OTX | No | ✅ Fully passive |
-| URLScan.io | No | ✅ Uses cached data |
-| GAU | No | ✅ Fully passive |
-| httpx (alive check) | **Yes** | ⚠️ Sends HTTP requests |
+| Wayback CDX | No | Fully passive |
+| CommonCrawl | No | Fully passive |
+| AlienVault OTX | No | Fully passive |
+| URLScan.io | No | Uses cached data |
+| GAU | No | Fully passive |
+| httpx (alive check) | **Yes** | Sends HTTP requests |
 

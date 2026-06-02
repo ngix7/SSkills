@@ -21,13 +21,13 @@ Remove noise:
 ### Third pass: Prioritize
 | Signal | Priority | Why |
 |--------|----------|-----|
-| `/?param=` | 🔴 High | Parameter injection points |
-| `/api/`, `/v1/`, `/graphql` | 🔴 High | API endpoints |
-| `/admin`, `/debug`, `/test` | 🔴 High | Hidden admin panels |
-| `*.js` | 🟡 Medium | Extract endpoints from JS |
-| `*.json`, `*.xml` | 🟡 Medium | Config/data exposure |
-| Old endpoints (2018-2022) | 🟡 Medium | Removed but might be alive |
-| Already-known paths | 🟢 Low | Skip duplicates |
+| `/?param=` | High | Parameter injection points |
+| `/api/`, `/v1/`, `/graphql` | High | API endpoints |
+| `/admin`, `/debug`, `/test` | High | Hidden admin panels |
+| `*.js` | Medium | Extract endpoints from JS |
+| `*.json`, `*.xml` | Medium | Config/data exposure |
+| Old endpoints (2018-2022) | Medium | Removed but might be alive |
+| Already-known paths | Low | Skip duplicates |
 
 ## Technique Selection
 

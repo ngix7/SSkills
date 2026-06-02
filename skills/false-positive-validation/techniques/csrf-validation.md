@@ -18,11 +18,11 @@ The form works in curl but fails in browser due to SameSite.
 ## Confirmation Criteria
 | Signal | Confident? |
 |--------|------------|
-| State-changing action without any token | ✅ Confirmed |
-| Predictable/reusable token | ✅ Confirmed |
-| Action modifies data on behalf of victim | ✅ Confirmed |
-| SameSite bypass confirmed in browser | ✅ Strong |
-| Only idempotent actions affected | ❌ Informational |
+| State-changing action without any token |  Confirmed |
+| Predictable/reusable token |  Confirmed |
+| Action modifies data on behalf of victim |  Confirmed |
+| SameSite bypass confirmed in browser |  Strong |
+| Only idempotent actions affected |  Informational |
 
 ## Validation Flow
 ```bash

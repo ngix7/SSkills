@@ -71,13 +71,13 @@ Different result counts could be random (ads, timestamps, sessions).
 
 | Signal | Confident? |
 |--------|------------|
-| Different UNION values produce different output | ✅ Confirmed |
-| Error message contains database version/query | ✅ Confirmed |
-| Time delay > 3x baseline, consistent | ✅ Strong |
-| Boolean TRUE/FALSE produces consistent different results | ✅ Strong |
-| Single `'` causes error, double `''` resolves it | ✅ Strong |
-| Error page but no control over content | ❌ Inconclusive |
-| Same error for all payloads | ❌ False Positive |
+| Different UNION values produce different output |  Confirmed |
+| Error message contains database version/query |  Confirmed |
+| Time delay > 3x baseline, consistent |  Strong |
+| Boolean TRUE/FALSE produces consistent different results |  Strong |
+| Single `'` causes error, double `''` resolves it |  Strong |
+| Error page but no control over content |  Inconclusive |
+| Same error for all payloads |  False Positive |
 
 ## 3-Step Validation
 

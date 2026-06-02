@@ -46,11 +46,11 @@ If the server ignores Content-Type and parses as JSON, the XML is treated as lit
 
 | Signal | Confident? |
 |--------|------------|
-| File content returned in response body | ✅ Confirmed |
-| File content exfiltrated via OOB | ✅ Confirmed |
-| XML parse error DIFFERENT from malformed XML error | ✅ Strong |
-| Same error for all entity types | ❌ Inconclusive |
-| XML accepted but entity not processed | ❌ False Positive |
+| File content returned in response body |  Confirmed |
+| File content exfiltrated via OOB |  Confirmed |
+| XML parse error DIFFERENT from malformed XML error |  Strong |
+| Same error for all entity types |  Inconclusive |
+| XML accepted but entity not processed |  False Positive |
 
 ## Validation Flow
 

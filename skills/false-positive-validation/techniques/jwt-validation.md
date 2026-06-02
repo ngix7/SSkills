@@ -32,10 +32,10 @@ Server accepts `HS256` but verification fails — returns 401. The endpoint just
 
 | Signal | Confident? |
 |--------|------------|
-| Public endpoint without auth → same result | ❌ Not JWT bypass |
-| `alg: none` on protected endpoint → access granted | ✅ Confirmed |
-| `HS256` with public key → access granted | ✅ Confirmed |
-| `alg: none` → different response than no-auth | ✅ Strong |
+| Public endpoint without auth → same result |  Not JWT bypass |
+| `alg: none` on protected endpoint → access granted |  Confirmed |
+| `HS256` with public key → access granted |  Confirmed |
+| `alg: none` → different response than no-auth |  Strong |
 
 ## Validation Flow
 

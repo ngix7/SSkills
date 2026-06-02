@@ -26,11 +26,11 @@ PHP's `allow_url_include` must be On for RFI.
 ## Confirmation Criteria
 | Signal | Confident? |
 |--------|------------|
-| File content readable in response (not HTML) | ✅ Confirmed |
-| php://filter returns base64 content | ✅ Confirmed |
-| Windows INI file content returned | ✅ Confirmed |
-| Empty response or HTML page | ❌ Inconclusive |
-| Same response for any path | ❌ False Positive |
+| File content readable in response (not HTML) |  Confirmed |
+| php://filter returns base64 content |  Confirmed |
+| Windows INI file content returned |  Confirmed |
+| Empty response or HTML page |  Inconclusive |
+| Same response for any path |  False Positive |
 
 ## Validation Flow
 ```bash

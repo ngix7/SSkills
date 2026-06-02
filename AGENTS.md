@@ -48,34 +48,34 @@ Skills are validated against real vulnerable targets (e.g., Juice Shop) before b
 
 ## Firefight Tool
 
-Registrado em `opencode.json` como custom tool. Orquestra debate + exploração.
+Registered in `opencode.json` as a custom tool. Orchestrates debate + exploitation.
 
-### Fluxo
+### Flow
 
-1. **Fase 1 — Debate (6 turnos):** Otimista → Cética → Engenheiro → Estrategista → Analista → Votação. Cada turno chama o LLM com a personalidade do agente + transcript completo do debate.
-2. **Votação:** LLM vota 4x. ≥3 SIM → aprovado.
-3. **Fase 2 — Especialização:** Script identifica a classe (XSS, SQLi, SSTI...) e carrega a skill correspondente do disco.
-4. **Fase 3 — Exploração:** Especialista sugere payloads → script executa via curl → LLM interpreta resultado. Até 3 tentativas.
-5. **Fase 4 — Chains (se confirmou):** Otimista → Estrategista → Votação sobre chain de ataque.
+1. **Phase 1 — Debate (6 rounds):** Optimist -> Skeptic -> Engineer -> Strategist -> Analyst -> Voting. Each round calls LLM with the agent's personality + full debate transcript.
+2. **Voting:** LLM votes 4 times. >=3 YES -> approved.
+3. **Phase 2 — Specialization:** Script identifies the class (XSS, SQLi, SSTI...) and loads the corresponding skill from disk.
+4. **Phase 3 — Exploitation:** Specialist suggests payloads -> script executes via curl -> LLM interprets result. Up to 3 attempts.
+5. **Phase 4 — Chains (if confirmed):** Optimist -> Strategist -> Voting on attack chain.
 
-### Personalidades dos debatedores
+### Debater Personalities
 
-| Agente | Postura |
-|--------|---------|
-| **Otimista** | Enxerga gold em tudo, argumenta pela exploração |
-| **Cética** | Duvida de tudo, pede prova concreta |
-| **Engenheiro** | Pensa no payload prático, bypasses, encoding |
-| **Estrategista** | Pensa em chains e rotas de ataque |
-| **Analista** | Classifica a vuln, referencia skills e CWEs |
+| Agent | Stance |
+|-------|--------|
+| **Optimist** | Sees gold in everything, argues for exploitation |
+| **Skeptic** | Doubts everything, demands concrete proof |
+| **Engineer** | Thinks about practical payload, bypasses, encoding |
+| **Strategist** | Thinks about chains and attack routes |
+| **Analyst** | Classifies the vuln, references skills and CWEs |
 
-### Uso
+### Usage
 
 ```bash
-# Direto
-node scripts/firefight.js --target "http://testphp.vulnweb.com/search.php?test=query" --finding "parametro test reflete input sem sanitizacao"
+# Direct
+node scripts/firefight.js --target "http://testphp.vulnweb.com/search.php?test=query" --finding "parameter test reflects user input without sanitization"
 
-# Via opencode tool (precisa do opencode.json na raiz)
-# Abre o opencode no repo e usa a tool registrada
+# Via opencode tool (requires opencode.json at root)
+# Open opencode in the repo and use the registered tool
 ```
 
 ### Output
@@ -86,12 +86,12 @@ node scripts/firefight.js --target "http://testphp.vulnweb.com/search.php?test=q
   "class": "xss",
   "technique": "reflected",
   "payload": "<img src=x onerror=alert(1)>",
-  "evidence": "alert(1) executou",
+  "evidence": "alert(1) executed",
   "chain": []
 }
 ```
 
 ### Config
 
-- Lê provider/model do `opencode.json` global ou deste repo
-- Usa `ANTHROPIC_API_KEY` ou `OPENAI_API_KEY` do ambiente
+- Reads provider/model from global or repo `opencode.json`
+- Uses `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` from environment

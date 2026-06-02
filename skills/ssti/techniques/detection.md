@@ -29,12 +29,12 @@ Detect SSTI by injecting probe strings and observing how they are evaluated.
 
 | Response | Meaning |
 |----------|---------|
-| Output contains `49` | ✅ Math evaluated — SSTI confirmed |
-| Output contains `7*7` or raw payload | ❌ Reflected verbatim — NOT SSTI |
-| Output contains `7*7` or `7*'7'` | ⚠️ Partial eval — engine-specific |
-| HTML error with file paths | ⚠️ Check for info disclosure |
-| HTTP 500 error | ⚠️ Inconclusive — try other syntaxes |
-| Empty output | ⚠️ Inconclusive — might be blind SSTI |
+| Output contains `49` | Math evaluated — SSTI confirmed |
+| Output contains `7*7` or raw payload | Reflected verbatim — NOT SSTI |
+| Output contains `7*7` or `7*'7'` | Partial eval — engine-specific |
+| HTML error with file paths | Check for info disclosure |
+| HTTP 500 error | Inconclusive — try other syntaxes |
+| Empty output | Inconclusive — might be blind SSTI |
 
 ## Context Matters
 
@@ -77,7 +77,7 @@ Once `{{7*7}}` = 49 is confirmed, identify the engine:
 
 | Behavior | Likely? |
 |----------|---------|
-| `{{7*7}}` appears as plain text | ❌ Not SSTI |
-| Angular/React `{{}}` interpolation in client-side framework | ❌ Client-side only |
-| Error message shows template syntax | ⚠️ Maybe SSTI, maybe just error |
-| CSS `calc(7*7)` context | ❌ CSS, not SSTI |
+| `{{7*7}}` appears as plain text | Not SSTI |
+| Angular/React `{{}}` interpolation in client-side framework | Client-side only |
+| Error message shows template syntax | Maybe SSTI, maybe just error |
+| CSS `calc(7*7)` context | CSS, not SSTI |

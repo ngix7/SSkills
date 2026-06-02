@@ -51,11 +51,11 @@ WAF reflects your payload in an error page — no real execution context.
 
 | Indicator | Confident? |
 |-----------|------------|
-| Payload raw in response (no encoding) | ✅ Strong signal |
-| Alert box executes in browser | ✅ Confirmed |
-| CSP headers present | ⚠️ Check for bypass |
-| Only reflected in JSON | ❌ Low unless stored |
-| Only reflected in error page | ❌ Likely WAF |
+| Payload raw in response (no encoding) |  Strong signal |
+| Alert box executes in browser |  Confirmed |
+| CSP headers present |  Check for bypass |
+| Only reflected in JSON |  Low unless stored |
+| Only reflected in error page |  Likely WAF |
 
 ## 3-Step Validation
 

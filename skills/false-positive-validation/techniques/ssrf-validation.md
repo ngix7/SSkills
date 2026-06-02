@@ -41,11 +41,11 @@ The app might block `file://` but allow `http://`. Test multiple protocols.
 
 | Signal | Confident? |
 |--------|------------|
-| HTTP request from server IP to collaborator | ✅ Confirmed |
-| Cloud metadata returned in response | ✅ Confirmed |
-| Internal service response (Redis, ES, admin) | ✅ Confirmed |
-| DNS lookup only | ❌ Inconclusive |
-| Same content as public site | ❌ False Positive |
+| HTTP request from server IP to collaborator |  Confirmed |
+| Cloud metadata returned in response |  Confirmed |
+| Internal service response (Redis, ES, admin) |  Confirmed |
+| DNS lookup only |  Inconclusive |
+| Same content as public site |  False Positive |
 
 ## Validation Flow
 

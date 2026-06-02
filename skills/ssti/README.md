@@ -41,9 +41,5 @@ python tplmap.py -u "http://target.com/page?name=*" --engine jinja2
 # Manual probes work better — engines are too diverse
 ```
 
-## Safety
 
-- ⛔ No RCE payloads without authorization
-- ⛔ `os.system('/bin/bash -c "..."')` — extremely destructive
-- ⛔ `cat /etc/shadow` — exfiltrating real secrets
 
